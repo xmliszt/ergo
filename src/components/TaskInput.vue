@@ -122,9 +122,10 @@ export default {
       highestPriority: 0,
     };
   },
-  created() {
+  async created() {
     this.rewardMarks = this.getRewardMarks();
-    this.getAllCategories();
+    await this.getAllCategories();
+    this.taskForm.category = this.categories[0].label;
   },
   methods: {
     onTaskEnter() {
@@ -175,6 +176,7 @@ export default {
           this.$message.error(err.message);
         }
       }
+      this.taskForm.category = value;
     },
     async getAllCategories() {
       this.categories = [];
@@ -192,7 +194,6 @@ export default {
             this.highestPriority = cat.priority;
           }
         });
-        this.taskForm.category = "default";
         this.$emit("category-update", cats);
       } catch (err) {
         console.error(err);

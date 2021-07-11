@@ -81,6 +81,12 @@ li > .el-button {
   width: 500px;
 }
 
+.single-task-holder .el-date-editor .el-input__inner,
+.single-task-holder .el-date-picker .el-input__inner {
+  color: $secondary-text-color;
+  font-size: 1.5rem !important;
+}
+
 .single-task-holder > span {
   font-weight: 100;
   font-size: 1.5rem;

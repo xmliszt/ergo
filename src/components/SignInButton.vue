@@ -33,10 +33,10 @@ export default {
         this.email = result.user.email;
         this.showSignIn = false;
         this.$message.success("you have been logged in successfully");
-        this.$emit("login");
         let uid = result.user.uid;
-        addCategory(uid, "default");
-        addCategory(uid, "archive");
+        await addCategory(uid, "default", 0);
+        await addCategory(uid, "archive", 1);
+        this.$emit("login");
       } catch (err) {
         console.error(err);
         this.$message.error(err.message);

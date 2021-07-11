@@ -69,50 +69,49 @@
   color: $basic-text-color !important;
 }
 
-.task-input .el-date-editor.el-input {
+.el-date-editor.el-input {
   width: 80% !important;
 }
 
-.task-input .el-date-editor .el-input__inner,
-.task-input .el-date-picker .el-input__inner {
+.el-date-editor .el-input__inner,
+.el-date-picker .el-input__inner {
   background-color: transparent !important;
   font-weight: 700;
-  color: $basic-text-color !important;
+  color: $basic-text-color;
   font-family: "ZenLoop";
-
   font-size: 1rem !important;
 }
 
-.task-input .el-date-picker__header-label {
+.el-date-picker__header-label {
   font-size: 1rem !important;
   font-weight: 900 !important;
   color: $basic-text-color !important;
 }
 
-.task-input .el-date-table th,
-.task-input .el-date-table td,
-.task-input .el-date-table span {
+.el-date-table th,
+.el-date-table td,
+.el-date-table span {
   font-weight: 800 !important;
   font-size: 1rem !important;
   color: $basic-text-color !important;
 }
 
-.task-input .el-date-table td.current span {
+.el-date-table td.current span {
   background-color: $accent-color !important;
   color: $secondary-text-color !important;
 }
 
-.task-input .el-picker-panel__icon-btn {
+.el-picker-panel__icon-btn {
   color: $basic-text-color !important;
 }
 
-.task-input .el-picker-panel,
-.task-input .el-picker-panel [slot="sidebar"],
-.task-input .el-picker-panel__sidebar,
-.task-input .el-picker-panel__footer,
-.task-input .el-picker-panel__shortcut,
-.task-input .el-time-panel,
-.task-input .el-time-panel__footer {
+.el-picker-panel,
+.el-picker-panel [slot="sidebar"],
+.el-picker-panel__sidebar,
+.el-picker-panel__footer,
+.el-picker-panel__shortcut,
+.el-time-panel,
+.el-time-panel__footer {
   font-family: "ZenLoop";
   font-weight: 900;
   font-size: 1rem !important;
@@ -120,29 +119,29 @@
   background: $secondary-text-color !important;
 }
 
-.task-input .el-time-spinner__item {
+\.el-time-spinner__item {
   font-weight: 900 !important;
   color: $basic-text-color !important;
   margin: 0px !important;
 }
 
-.task-input .el-time-spinner__item:hover {
+.el-time-spinner__item:hover {
   background-color: transparent !important;
   border: 0.1px solid $accent-color !important;
   border-radius: 2px !important;
 }
 
-.task-input .el-picker-panel .el-button,
-.task-input .el-time-panel__btn {
+.el-picker-panel .el-button,
+.el-time-panel__btn {
   color: $accent-color !important;
 }
 
-.task-input .el-picker-panel .el-button--default {
+.el-picker-panel .el-button--default {
   background-color: transparent !important;
   color: $basic-text-color !important;
 }
 
-.task-input .el-picker-panel .el-button--default:hover {
+.el-picker-panel .el-button--default:hover {
   border-color: $accent-color !important;
 }
 
@@ -163,26 +162,26 @@
   font-weight: 700 !important;
 }
 
-.task-input .el-select-dropdown,
-.task-input .el-select-dropdown__item {
+.el-select-dropdown,
+.el-select-dropdown__item {
   background-color: $secondary-text-color !important;
   color: #cccccc !important;
   font-size: 1.5rem !important;
   font-weight: 800 !important;
 }
 
-.task-input .el-select-dropdown__item:hover {
+.el-select-dropdown__item:hover {
   border: 1px solid $accent-color !important;
   color: $basic-text-color !important;
   font-weight: 800 !important;
 }
 
-.task-input .el-select-dropdown__item.selected {
+.el-select-dropdown__item.selected {
   color: $accent-color !important;
 }
 
-.task-input .el-select .el-input__inner,
-.task-input .el-select .el-input.is-focus .el-input__inner {
+.el-select .el-input__inner,
+.el-select .el-input.is-focus .el-input__inner {
   background-color: transparent !important;
   color: $basic-text-color !important;
 }
