@@ -1,6 +1,6 @@
 import { db } from "../firebase";
 
-export async function addCategory(uid, category) {
+export async function addCategory(uid, category, priority) {
   return new Promise((res, rej) => {
     db.collection("users")
       .doc(uid)
@@ -8,6 +8,7 @@ export async function addCategory(uid, category) {
       .doc(category)
       .set({
         name: category,
+        priority: priority,
       })
       .then(() => {
         res(true);
@@ -45,7 +46,7 @@ export async function getCategories(uid) {
       .then((querySnapshot) => {
         let categories = [];
         querySnapshot.forEach((doc) => {
-          categories.push(doc.id);
+          categories.push(doc.data());
         });
         res(categories);
       })
@@ -106,6 +107,7 @@ export async function updateTask(
   rewards
 ) {
   return new Promise((res, rej) => {
+    console.log("update: " + taskID);
     db.collection("users")
       .doc(uid)
       .collection("tasks")
@@ -117,6 +119,7 @@ export async function updateTask(
         rewards: rewards,
       })
       .then(() => {
+        console.log("success");
         res(true);
       })
       .catch((err) => {
@@ -153,10 +156,10 @@ export async function getTasks(uid, category) {
         querySnapshot.forEach((doc) => {
           tasks.push({
             taskId: doc.id,
-            desc: doc.desc,
-            category: doc.category,
-            due: doc.due,
-            rewards: doc.rewards,
+            desc: doc.data().desc,
+            category: doc.data().category,
+            due: doc.data().due.toDate(),
+            rewards: doc.data().rewards,
           });
         });
         res(tasks);

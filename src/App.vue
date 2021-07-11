@@ -1,20 +1,23 @@
 <template>
   <div id="app">
     <h1 class="title">Hi {{ username }}! What's in your mind today?</h1>
-    <TaskInput />
+    <TaskInput @category-update="onCategoryUpdate" />
+    <TaskDisplay ref="taskDisplay" />
     <SignInButton @logout="onUserLogout" @login="onUserLogin" />
   </div>
 </template>
 
 <script>
 import "./styles/Root.scss";
-import TaskInput from "@/components/TaskInput";
-import SignInButton from "@/components/SignInButton";
+import TaskInput from "./components/TaskInput";
+import SignInButton from "./components/SignInButton";
+import TaskDisplay from "./components/TaskDisplay";
 import { getCookie } from "./utils/cookies";
 export default {
   components: {
     TaskInput,
     SignInButton,
+    TaskDisplay,
   },
   data() {
     return {
@@ -31,11 +34,16 @@ export default {
     onUserLogin() {
       window.location.reload();
     },
+    onCategoryUpdate(categories) {
+      this.$refs.taskDisplay.updateCategories(categories);
+    },
   },
 };
 </script>
 
-<style>
+<style lang="scss">
+@import "./styles/Variables.scss";
+
 @font-face {
   font-family: "ZenLoop";
   src: local("ZenLoop"), url("../src/fonts/ZenLoop-Regular.ttf");
@@ -48,8 +56,7 @@ export default {
 
 html,
 body {
-  font-family: "ZenLoop", "Helvetica Neue", Helvetica, "PingFang SC",
-    "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-family: $font-family;
 }
 
 body {

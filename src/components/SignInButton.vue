@@ -51,7 +51,7 @@ export default {
         this.$message.success("you have been logged out successfully");
         this.$emit("logout");
       } catch (err) {
-        this.$message.error(err);
+        this.$message.error(err.message);
       }
     },
   },

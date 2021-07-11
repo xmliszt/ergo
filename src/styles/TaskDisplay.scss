@@ -3,3 +3,87 @@
 .task-display {
   margin: 0 10rem;
 }
+
+.task-display .el-button:hover {
+  border-color: $accent-color;
+  color: $accent-color !important;
+}
+
+li > .el-button {
+  width: 100%;
+  font-family: $font-family;
+  margin-top: 20px;
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.7) !important;
+  background-color: transparent !important;
+  color: $basic-text-color !important;
+  font-size: 2rem !important;
+  font-weight: 900 !important;
+  font-variant: small-caps !important;
+}
+
+.el-drawer__open .el-drawer.btt {
+  border-top: 5px solid $accent-color;
+}
+
+.el-drawer__header > :first-child {
+  font-size: 2rem !important;
+  font-weight: 800;
+  font-variant: small-caps;
+  color: $secondary-text-color;
+}
+
+.single-task-holder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 10rem;
+  border-bottom: 1px solid $secondary-text-color;
+}
+
+.single-task-holder .el-button,
+.single-task-holder .el-button:focus {
+  border-radius: 50%;
+  background-color: transparent;
+  border: 0;
+  font-size: 1.5rem;
+}
+
+.single-task-holder .el-button:hover {
+  background-color: transparent;
+}
+
+.single-task-holder .el-button:focus {
+  color: $accent-color;
+}
+
+.single-task-holder .el-input {
+  width: 90%;
+  margin: 0 2rem;
+}
+
+.single-task-holder .el-input__inner {
+  border: 0;
+  font-family: $font-family;
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.single-task-holder .el-input__inner:hover {
+  border: 1px solid $accent-color;
+}
+
+.single-task-holder .el-input__inner:focus {
+  border: 2px solid $accent-color;
+}
+
+.single-task-holder .el-date-editor.el-input,
+.el-date-editor.el-input__inner {
+  width: 500px;
+}
+
+.single-task-holder > span {
+  font-weight: 100;
+  font-size: 1.5rem;
+  color: rgb(214, 96, 0);
+  font-family: Georgia, "Times New Roman", Times, serif;
+}

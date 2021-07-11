@@ -95,6 +95,15 @@ export default {
             },
           },
           {
+            text: "Tomorrow",
+            onClick(picker) {
+              picker.$emit(
+                "pick",
+                new Date().setDate(new Date().getDate() + 1)
+              );
+            },
+          },
+          {
             text: "This Weekend",
             onClick(picker) {
               picker.$emit("pick", getThisWeekend());
@@ -110,6 +119,7 @@ export default {
       },
       rewardMarks: {},
       categories: [],
+      highestPriority: 0,
     };
   },
   created() {
@@ -146,8 +156,10 @@ export default {
           this.taskForm.rewards
         );
         this.$message.success("task is successfully created");
+        this.taskForm.description = "";
+        this.onTaskInputChange();
       } catch (err) {
-        this.$message.error(err);
+        this.$message.error(err.message);
       }
     },
     async onCategoryChange(value) {
@@ -157,10 +169,10 @@ export default {
       });
       if (!currentCategories.includes(value)) {
         try {
-          await addCategory(getCookie("uid"), value);
+          await addCategory(getCookie("uid"), value, this.highestPriority + 1);
           this.getAllCategories();
         } catch (err) {
-          this.$message.error(err);
+          this.$message.error(err.message);
         }
       }
     },
@@ -170,13 +182,18 @@ export default {
       try {
         let uid = getCookie("uid");
         cats = await getCategories(uid);
+        cats.sort((a, b) => a.priority - b.priority);
         cats.forEach((cat) => {
           this.categories.push({
-            label: cat,
-            value: cat,
+            label: cat.name,
+            value: cat.name,
           });
+          if (cat.priority > this.highestPriority) {
+            this.highestPriority = cat.priority;
+          }
         });
         this.taskForm.category = "default";
+        this.$emit("category-update", cats);
       } catch (err) {
         console.error(err);
         this.$message.error(err.message);

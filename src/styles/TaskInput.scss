@@ -41,40 +41,40 @@
   color: #cccccc !important;
 }
 
-.el-collapse-item__header {
+.task-input .el-collapse-item__header {
   background-color: transparent !important;
   border-width: 0 !important;
 }
 
-.el-collapse-item__arrow {
+.task-input .el-collapse-item__arrow {
   color: transparent !important;
 }
 
-.el-collapse {
+.task-input .el-collapse {
   border-width: 0 !important;
 }
 
-.el-collapse-item__wrap {
+.task-input .el-collapse-item__wrap {
   background-color: transparent !important;
   padding: 0 5rem !important;
 }
 
-.el-collapse-item.is-disabled .el-collapse-item__header {
+.task-input .el-collapse-item.is-disabled .el-collapse-item__header {
   cursor: default !important;
 }
 
-label {
+.task-input label {
   font-size: 2rem !important;
   font-weight: 700 !important;
   color: $basic-text-color !important;
 }
 
-.el-date-editor.el-input {
+.task-input .el-date-editor.el-input {
   width: 80% !important;
 }
 
-.el-date-editor .el-input__inner,
-.el-date-picker .el-input__inner {
+.task-input .el-date-editor .el-input__inner,
+.task-input .el-date-picker .el-input__inner {
   background-color: transparent !important;
   font-weight: 700;
   color: $basic-text-color !important;
@@ -83,36 +83,36 @@ label {
   font-size: 1rem !important;
 }
 
-.el-date-picker__header-label {
+.task-input .el-date-picker__header-label {
   font-size: 1rem !important;
   font-weight: 900 !important;
   color: $basic-text-color !important;
 }
 
-.el-date-table th,
-.el-date-table td,
-.el-date-table span {
+.task-input .el-date-table th,
+.task-input .el-date-table td,
+.task-input .el-date-table span {
   font-weight: 800 !important;
   font-size: 1rem !important;
   color: $basic-text-color !important;
 }
 
-.el-date-table td.current span {
+.task-input .el-date-table td.current span {
   background-color: $accent-color !important;
   color: $secondary-text-color !important;
 }
 
-.el-picker-panel__icon-btn {
+.task-input .el-picker-panel__icon-btn {
   color: $basic-text-color !important;
 }
 
-.el-picker-panel,
-.el-picker-panel [slot="sidebar"],
-.el-picker-panel__sidebar,
-.el-picker-panel__footer,
-.el-picker-panel__shortcut,
-.el-time-panel,
-.el-time-panel__footer {
+.task-input .el-picker-panel,
+.task-input .el-picker-panel [slot="sidebar"],
+.task-input .el-picker-panel__sidebar,
+.task-input .el-picker-panel__footer,
+.task-input .el-picker-panel__shortcut,
+.task-input .el-time-panel,
+.task-input .el-time-panel__footer {
   font-family: "ZenLoop";
   font-weight: 900;
   font-size: 1rem !important;
@@ -120,81 +120,81 @@ label {
   background: $secondary-text-color !important;
 }
 
-.el-time-spinner__item {
+.task-input .el-time-spinner__item {
   font-weight: 900 !important;
   color: $basic-text-color !important;
   margin: 0px !important;
 }
 
-.el-time-spinner__item:hover {
+.task-input .el-time-spinner__item:hover {
   background-color: transparent !important;
   border: 0.1px solid $accent-color !important;
   border-radius: 2px !important;
 }
 
-.el-picker-panel .el-button,
-.el-time-panel__btn {
+.task-input .el-picker-panel .el-button,
+.task-input .el-time-panel__btn {
   color: $accent-color !important;
 }
 
-.el-picker-panel .el-button--default {
+.task-input .el-picker-panel .el-button--default {
   background-color: transparent !important;
   color: $basic-text-color !important;
 }
 
-.el-picker-panel .el-button--default:hover {
+.task-input .el-picker-panel .el-button--default:hover {
   border-color: $accent-color !important;
 }
 
-.el-form-item__content {
+.task-input .el-form-item__content {
   text-align: left;
 }
 
-.el-slider__bar {
+.task-input .el-slider__bar {
   background-color: $accent-color !important;
 }
 
-.el-slider__button {
+.task-input .el-slider__button {
   border-color: $accent-color !important;
 }
 
-.el-slider__marks-text {
+.task-input .el-slider__marks-text {
   color: $basic-text-color !important;
   font-weight: 700 !important;
 }
 
-.el-select-dropdown,
-.el-select-dropdown__item {
+.task-input .el-select-dropdown,
+.task-input .el-select-dropdown__item {
   background-color: $secondary-text-color !important;
   color: #cccccc !important;
   font-size: 1.5rem !important;
   font-weight: 800 !important;
 }
 
-.el-select-dropdown__item:hover {
+.task-input .el-select-dropdown__item:hover {
   border: 1px solid $accent-color !important;
   color: $basic-text-color !important;
   font-weight: 800 !important;
 }
 
-.el-select-dropdown__item.selected {
+.task-input .el-select-dropdown__item.selected {
   color: $accent-color !important;
 }
 
-.el-select .el-input__inner,
-.el-select .el-input.is-focus .el-input__inner {
+.task-input .el-select .el-input__inner,
+.task-input .el-select .el-input.is-focus .el-input__inner {
   background-color: transparent !important;
   color: $basic-text-color !important;
 }
 
-.submit-btn-wrapper > .el-button,
-.submit-btn-wrapper > .el-button:focus {
+.task-input .submit-btn-wrapper > .el-button,
+.task-input .submit-btn-wrapper > .el-button:focus {
   background-color: transparent;
   color: $basic-text-color;
   font-weight: 800;
 }
 
-.submit-btn-wrapper > .el-button:hover {
+.task-input .submit-btn-wrapper > .el-button:hover {
   background-color: transparent;
   border-color: $accent-color;
   color: $accent-color;
