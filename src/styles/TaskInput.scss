@@ -18,6 +18,12 @@
   margin-left: 10px;
 }
 
+.submit-btn-wrapper {
+  width: 80%;
+  text-align: right;
+  margin-top: 30px;
+}
+
 .task-input-wrapper .el-input__inner {
   background-color: transparent !important;
   height: 4rem !important;
@@ -179,4 +185,18 @@ label {
 .el-select .el-input.is-focus .el-input__inner {
   background-color: transparent !important;
   color: $basic-text-color !important;
+}
+
+.submit-btn-wrapper > .el-button,
+.submit-btn-wrapper > .el-button:focus {
+  background-color: transparent;
+  color: $basic-text-color;
+  font-weight: 800;
+}
+
+.submit-btn-wrapper > .el-button:hover {
+  background-color: transparent;
+  border-color: $accent-color;
+  color: $accent-color;
+  font-weight: 800;
 }

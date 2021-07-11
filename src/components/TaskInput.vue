@@ -59,6 +59,11 @@
               <div class="task-text">{{ taskForm.rewards }}</div>
             </div>
           </el-form-item>
+          <el-form-item>
+            <div class="submit-btn-wrapper">
+              <el-button @click="addTask">Add Task</el-button>
+            </div>
+          </el-form-item>
         </el-form>
       </el-collapse-item>
     </el-collapse>
@@ -68,7 +73,7 @@
 <script>
 import "@/styles/TaskInput.scss";
 import { getThisWeekend, getNextWeekend } from "../utils/datetime";
-import { addCategory, getCategories } from "../api/tasks";
+import { addCategory, getCategories, addNewTask } from "../api/tasks";
 import { getCookie } from "../utils/cookies";
 
 export default {
@@ -130,6 +135,20 @@ export default {
         marks[i] = `${i}`;
       }
       return marks;
+    },
+    async addTask() {
+      try {
+        await addNewTask(
+          getCookie("uid"),
+          this.taskForm.category,
+          this.taskForm.description,
+          this.taskForm.dueDateTime,
+          this.taskForm.rewards
+        );
+        this.$message.success("task is successfully created");
+      } catch (err) {
+        this.$message.error(err);
+      }
     },
     async onCategoryChange(value) {
       let currentCategories = [];
