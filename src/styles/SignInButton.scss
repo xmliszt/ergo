@@ -1,0 +1,34 @@
+@import "./Variables.scss";
+
+.login-wrapper {
+  display: flex;
+}
+
+.signin-btn-wrapper {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+}
+
+.login-wrapper > .el-button {
+  border-width: 0px;
+  font-size: 1rem;
+}
+
+.login-wrapper > .el-button,
+.login-wrapper > .el-button:focus,
+.signin-btn-wrapper > .el-button {
+  background-color: transparent;
+  color: $basic-text-color;
+}
+
+.signin-btn-wrapper > .el-button:hover {
+  background-color: $accent-color;
+  color: $secondary-text-color;
+}
+
+.login-wrapper > .el-button:hover {
+  background-color: transparent;
+  border-width: 0px;
+  color: #f56c6c;
+}

@@ -1,18 +1,36 @@
 <template>
   <div id="app">
-    <h1 style="margin-top: 10rem; margin-bottom: 4rem; font-size: 5rem">
-      What's in your mind today?
-    </h1>
+    <h1 class="title">Hi {{ username }}! What's in your mind today?</h1>
     <TaskInput />
-    <router-view />
+    <SignInButton @logout="onUserLogout" @login="onUserLogin" />
   </div>
 </template>
 
 <script>
+import "./styles/Root.scss";
 import TaskInput from "@/components/TaskInput";
+import SignInButton from "@/components/SignInButton";
+import { getCookie } from "./utils/cookies";
 export default {
   components: {
     TaskInput,
+    SignInButton,
+  },
+  data() {
+    return {
+      username: "",
+    };
+  },
+  created() {
+    this.username = getCookie("username");
+  },
+  methods: {
+    onUserLogout() {
+      this.username = "";
+    },
+    onUserLogin() {
+      this.username = getCookie("username");
+    },
   },
 };
 </script>
@@ -26,7 +44,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #fff;
 }
 
 html,

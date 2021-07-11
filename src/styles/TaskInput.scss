@@ -1,5 +1,4 @@
-$accent-color: #7aff7a;
-$basic-text-color: #fff;
+@import "./Variables.scss";
 
 .task-input {
   padding: 0 10rem;
@@ -9,6 +8,7 @@ $basic-text-color: #fff;
   font-size: 2rem;
   color: $basic-text-color;
   text-align: left;
+  margin: 0 5px;
 }
 
 .rewards-wrapper {
@@ -41,7 +41,7 @@ $basic-text-color: #fff;
 }
 
 .el-collapse-item__arrow {
-  color: $basic-text-color !important;
+  color: transparent !important;
 }
 
 .el-collapse {
@@ -93,7 +93,7 @@ label {
 
 .el-date-table td.current span {
   background-color: $accent-color !important;
-  color: #2c2c2c !important;
+  color: $secondary-text-color !important;
 }
 
 .el-picker-panel__icon-btn {
@@ -111,7 +111,7 @@ label {
   font-weight: 900;
   font-size: 1rem !important;
   color: $basic-text-color !important;
-  background: #2c2c2c !important;
+  background: $secondary-text-color !important;
 }
 
 .el-time-spinner__item {
@@ -159,7 +159,7 @@ label {
 
 .el-select-dropdown,
 .el-select-dropdown__item {
-  background-color: #2c2c2c !important;
+  background-color: $secondary-text-color !important;
   color: #cccccc !important;
   font-size: 1.5rem !important;
   font-weight: 800 !important;

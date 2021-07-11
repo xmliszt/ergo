@@ -1,0 +1,12 @@
+@import "./Variables.scss";
+
+.title {
+  margin-top: 10rem;
+  margin-bottom: 4rem;
+  font-size: 5rem;
+  color: $basic-text-color;
+}
+
+.el-message__content {
+  font-family: Arial, Helvetica, sans-serif;
+}
