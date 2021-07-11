@@ -26,6 +26,7 @@
               filterable
               allow-create
               default-first-option
+              @change="onCategoryChange"
             >
               <el-option
                 :key="category.value"
@@ -66,7 +67,9 @@
 
 <script>
 import "@/styles/TaskInput.scss";
-import { getNextWeekend } from "@/utils/datetime";
+import { getThisWeekend, getNextWeekend } from "../utils/datetime";
+import { addCategory, getCategories } from "../api/tasks";
+import { getCookie } from "../utils/cookies";
 
 export default {
   data() {
@@ -74,7 +77,7 @@ export default {
       activeName: "",
       taskForm: {
         description: "",
-        category: "Default",
+        category: "",
         dueDateTime: new Date(),
         rewards: 1,
       },
@@ -89,6 +92,12 @@ export default {
           {
             text: "This Weekend",
             onClick(picker) {
+              picker.$emit("pick", getThisWeekend());
+            },
+          },
+          {
+            text: "Next Weekend",
+            onClick(picker) {
               picker.$emit("pick", getNextWeekend());
             },
           },
@@ -100,7 +109,7 @@ export default {
   },
   created() {
     this.rewardMarks = this.getRewardMarks();
-    this.categories = this.getAllCategories();
+    this.getAllCategories();
   },
   methods: {
     onTaskEnter() {
@@ -122,23 +131,37 @@ export default {
       }
       return marks;
     },
-    getAllCategories() {
-      var categories = [
-        {
-          value: "Default",
-          label: "Default",
-        },
-        {
-          value: "Study",
-          label: "Study",
-        },
-        {
-          value: "Work",
-          label: "Work",
-        },
-      ];
-      // call API to fetch all categories
-      return categories;
+    async onCategoryChange(value) {
+      let currentCategories = [];
+      this.categories.forEach((cat) => {
+        currentCategories.push(cat.label);
+      });
+      if (!currentCategories.includes(value)) {
+        try {
+          await addCategory(getCookie("uid"), value);
+          this.getAllCategories();
+        } catch (err) {
+          this.$message.error(err);
+        }
+      }
+    },
+    async getAllCategories() {
+      this.categories = [];
+      let cats = [];
+      try {
+        let uid = getCookie("uid");
+        cats = await getCategories(uid);
+        cats.forEach((cat) => {
+          this.categories.push({
+            label: cat,
+            value: cat,
+          });
+        });
+        this.taskForm.category = "default";
+      } catch (err) {
+        console.error(err);
+        this.$message.error(err.message);
+      }
     },
   },
 };

@@ -30,8 +30,19 @@ export async function googleLoginPopup() {
 }
 
 export function logout() {
-  deleteCookie("token");
-  deleteCookie("email");
-  deleteCookie("uid");
-  deleteCookie("username");
+  return new Promise((res, rej) => {
+    auth
+      .signOut()
+      .then(() => {
+        deleteCookie("token");
+        deleteCookie("email");
+        deleteCookie("uid");
+        deleteCookie("username");
+        setCookie("uid", "demo");
+        res(true);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
 }

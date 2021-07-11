@@ -15,7 +15,7 @@
 
 <script>
 import "../styles/SignInButton.scss";
-import { getCookie } from "../utils/cookies";
+import { getCookie, setCookie } from "../utils/cookies";
 import { googleLoginPopup, logout } from "../api/auth";
 
 export default {
@@ -39,12 +39,16 @@ export default {
         this.showSignIn = true;
       }
     },
-    userLogout() {
-      logout();
-      this.showSignIn = true;
-      this.email = "";
-      this.$message.success("you have been logged out successfully");
-      this.$emit("logout");
+    async userLogout() {
+      try {
+        logout();
+        this.showSignIn = true;
+        this.email = "";
+        this.$message.success("you have been logged out successfully");
+        this.$emit("logout");
+      } catch (err) {
+        this.$message.error(err);
+      }
     },
   },
   created() {
@@ -53,6 +57,7 @@ export default {
       this.email = getCookie("email");
     } else {
       this.showSignIn = true;
+      setCookie("uid", "demo");
     }
   },
 };
