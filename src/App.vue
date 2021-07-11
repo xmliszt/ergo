@@ -26,10 +26,10 @@ export default {
   },
   methods: {
     onUserLogout() {
-      this.username = "";
+      window.location.reload();
     },
     onUserLogin() {
-      this.username = getCookie("username");
+      window.location.reload();
     },
   },
 };

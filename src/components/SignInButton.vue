@@ -17,6 +17,7 @@
 import "../styles/SignInButton.scss";
 import { getCookie, setCookie } from "../utils/cookies";
 import { googleLoginPopup, logout } from "../api/auth";
+import { addCategory } from "../api/tasks";
 
 export default {
   data() {
@@ -33,6 +34,9 @@ export default {
         this.showSignIn = false;
         this.$message.success("you have been logged in successfully");
         this.$emit("login");
+        let uid = result.user.uid;
+        addCategory(uid, "default");
+        addCategory(uid, "archive");
       } catch (err) {
         console.error(err);
         this.$message.error(err.message);
