@@ -1,0 +1,182 @@
+$accent-color: #7aff7a;
+$basic-text-color: #fff;
+
+.task-input {
+  padding: 0 10rem;
+}
+
+.task-text {
+  font-size: 2rem;
+  color: $basic-text-color;
+  text-align: left;
+}
+
+.rewards-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin-left: 10px;
+}
+
+.task-input-wrapper .el-input__inner {
+  background-color: transparent !important;
+  height: 4rem !important;
+  font-size: 2rem !important;
+  font-weight: 700;
+  color: $basic-text-color !important;
+  font-family: "ZenLoop";
+}
+
+.el-input__inner:focus {
+  border-color: $accent-color !important;
+}
+
+.el-input__inner::placeholder {
+  color: #cccccc !important;
+}
+
+.el-collapse-item__header {
+  background-color: transparent !important;
+  border-width: 0 !important;
+}
+
+.el-collapse-item__arrow {
+  color: $basic-text-color !important;
+}
+
+.el-collapse {
+  border-width: 0 !important;
+}
+
+.el-collapse-item__wrap {
+  background-color: transparent !important;
+  padding: 0 5rem !important;
+}
+
+.el-collapse-item.is-disabled .el-collapse-item__header {
+  cursor: default !important;
+}
+
+label {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  color: $basic-text-color !important;
+}
+
+.el-date-editor.el-input {
+  width: 80% !important;
+}
+
+.el-date-editor .el-input__inner,
+.el-date-picker .el-input__inner {
+  background-color: transparent !important;
+  font-weight: 700;
+  color: $basic-text-color !important;
+  font-family: "ZenLoop";
+
+  font-size: 1rem !important;
+}
+
+.el-date-picker__header-label {
+  font-size: 1rem !important;
+  font-weight: 900 !important;
+  color: $basic-text-color !important;
+}
+
+.el-date-table th,
+.el-date-table td,
+.el-date-table span {
+  font-weight: 800 !important;
+  font-size: 1rem !important;
+  color: $basic-text-color !important;
+}
+
+.el-date-table td.current span {
+  background-color: $accent-color !important;
+  color: #2c2c2c !important;
+}
+
+.el-picker-panel__icon-btn {
+  color: $basic-text-color !important;
+}
+
+.el-picker-panel,
+.el-picker-panel [slot="sidebar"],
+.el-picker-panel__sidebar,
+.el-picker-panel__footer,
+.el-picker-panel__shortcut,
+.el-time-panel,
+.el-time-panel__footer {
+  font-family: "ZenLoop";
+  font-weight: 900;
+  font-size: 1rem !important;
+  color: $basic-text-color !important;
+  background: #2c2c2c !important;
+}
+
+.el-time-spinner__item {
+  font-weight: 900 !important;
+  color: $basic-text-color !important;
+  margin: 0px !important;
+}
+
+.el-time-spinner__item:hover {
+  background-color: transparent !important;
+  border: 0.1px solid $accent-color !important;
+  border-radius: 2px !important;
+}
+
+.el-picker-panel .el-button,
+.el-time-panel__btn {
+  color: $accent-color !important;
+}
+
+.el-picker-panel .el-button--default {
+  background-color: transparent !important;
+  color: $basic-text-color !important;
+}
+
+.el-picker-panel .el-button--default:hover {
+  border-color: $accent-color !important;
+}
+
+.el-form-item__content {
+  text-align: left;
+}
+
+.el-slider__bar {
+  background-color: $accent-color !important;
+}
+
+.el-slider__button {
+  border-color: $accent-color !important;
+}
+
+.el-slider__marks-text {
+  color: $basic-text-color !important;
+  font-weight: 700 !important;
+}
+
+.el-select-dropdown,
+.el-select-dropdown__item {
+  background-color: #2c2c2c !important;
+  color: #cccccc !important;
+  font-size: 1.5rem !important;
+  font-weight: 800 !important;
+}
+
+.el-select-dropdown__item:hover {
+  border: 1px solid $accent-color !important;
+  color: $basic-text-color !important;
+  font-weight: 800 !important;
+}
+
+.el-select-dropdown__item.selected {
+  color: $accent-color !important;
+}
+
+.el-select .el-input__inner,
+.el-select .el-input.is-focus .el-input__inner {
+  background-color: transparent !important;
+  color: $basic-text-color !important;
+}
