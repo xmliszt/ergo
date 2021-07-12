@@ -45,7 +45,7 @@ export default {
     },
     async userLogout() {
       try {
-        logout();
+        await logout();
         this.showSignIn = true;
         this.email = "";
         this.$message.success("you have been logged out successfully");

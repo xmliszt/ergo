@@ -38,6 +38,7 @@ export async function updateCategory(uid, category, newCategory) {
 }
 
 export async function getCategories(uid) {
+  if (!uid) uid = "demo";
   return new Promise((res, rej) => {
     db.collection("users")
       .doc(uid)
