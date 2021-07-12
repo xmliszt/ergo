@@ -310,6 +310,7 @@ export default {
           }
 
           this.refreshTaskCategory(task.category);
+          this.$message.success("finished task");
           this.$emit("update");
         }
       } catch (err) {

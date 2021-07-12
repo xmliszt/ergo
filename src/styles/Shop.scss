@@ -1,0 +1,113 @@
+@import "./Variables.scss";
+
+.shop-btn-holder {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+}
+
+.shop-btn-holder > .el-button {
+  border-width: 0px;
+  font-size: 2rem;
+}
+
+.shop-btn-holder > .el-button,
+.shop-btn-holder > .el-button:focus {
+  background-color: transparent;
+  color: $basic-text-color;
+}
+
+.shop-btn-holder > .el-button:hover {
+  background-color: transparent;
+  color: $accent-color;
+}
+
+.shop-view .el-drawer__body {
+  padding: 2rem;
+}
+
+.shop-view .el-form-item__label {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.shop-view .el-input__inner {
+  color: $accent-color;
+  font-size: 1.5rem;
+  font-family: "ZenLoop";
+  font-weight: 700;
+}
+
+.shop-view .el-form-item__content {
+  text-align: left;
+}
+
+.shop-item-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.shop-item-wrapper .el-avatar {
+  background: transparent;
+  color: $accent-color;
+  border: 1px solid $accent-color !important;
+}
+
+.shop-item-wrapper .task-text {
+  margin-left: 1rem;
+  color: $secondary-text-color;
+}
+
+.shop-item-wrapper .el-tag {
+  background-color: transparent !important;
+  border-color: $accent-color !important;
+  font-size: 1.5rem !important;
+  color: $accent-color !important;
+  font-weight: 900 !important;
+}
+
+.shop-item-wrapper .el-button {
+  margin-left: 2rem;
+}
+
+.el-form-item__error {
+  font-weight: 700 !important;
+  font-size: 20px !important;
+}
+
+.shop-view .el-form-item {
+  margin-bottom: 2rem;
+}
+
+.shop-view .el-form-item__content .el-button {
+  border-width: 0px;
+  font-size: 1rem;
+  color: $secondary-text-color;
+}
+
+.shop-view .el-form-item__content .el-button,
+.shop-view .el-form-item__content .el-button:focus {
+  background-color: transparent;
+  color: $secondary-text-color;
+}
+
+.shop-view .el-form-item__content .el-button:hover {
+  background-color: transparent;
+  color: $accent-color !important;
+}
+
+.shop-item-wrapper .el-button.close-icon,
+.shop-item-wrapper .el-button.close-icon:focus {
+  border-width: 0;
+  font-size: 1.5rem;
+  padding: 0;
+  background-color: transparent;
+  color: $secondary-text-color;
+}
+
+.shop-item-wrapper .el-button.close-icon:hover {
+  color: $accent-color;
+  background-color: transparent;
+}

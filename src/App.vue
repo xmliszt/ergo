@@ -8,17 +8,20 @@
       @logout="onUserLogout"
       @login="onUserLogin"
     />
+    <Shop @update="onShopUpdate" />
   </div>
 </template>
 
 <script>
 import "./styles/Root.scss";
+import Shop from "./components/Shop.vue";
 import TaskInput from "./components/TaskInput";
 import SignInButton from "./components/SignInButton";
 import TaskDisplay from "./components/TaskDisplay";
 import { getCookie } from "./utils/cookies";
 export default {
   components: {
+    Shop,
     TaskInput,
     SignInButton,
     TaskDisplay,
@@ -50,6 +53,9 @@ export default {
       this.$refs.taskDisplay.updateCategories(categories);
     },
     onTaskUpdate() {
+      this.$refs.signInButton.refreshProfile();
+    },
+    onShopUpdate() {
       this.$refs.signInButton.refreshProfile();
     },
   },

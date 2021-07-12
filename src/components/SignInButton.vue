@@ -1,6 +1,9 @@
 <template>
   <div class="signin-btn-wrapper">
-    <el-button @click="signIn" v-show="showSignIn">Google Sign In</el-button>
+    <div class="login-wrapper" v-show="showSignIn">
+      <div class="task-text">{{ coins }} coins</div>
+      <el-button @click="signIn">Google Sign In</el-button>
+    </div>
     <div class="login-wrapper" v-show="!showSignIn">
       <div class="task-text">{{ coins }} coins</div>
       <div class="task-text">|</div>
@@ -75,13 +78,13 @@ export default {
     async refreshProfile() {
       if (getCookie("token")) {
         this.showSignIn = false;
-        let userProfile = await getUserProfile(getCookie("uid"));
-        this.email = userProfile.email;
-        this.coins = userProfile.coins;
       } else {
         this.showSignIn = true;
         setCookie("uid", "demo");
       }
+      let userProfile = await getUserProfile(getCookie("uid"));
+      this.email = userProfile.email;
+      this.coins = userProfile.coins;
     },
   },
   created() {
