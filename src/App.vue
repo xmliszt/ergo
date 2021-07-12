@@ -18,7 +18,7 @@ import Shop from "./components/Shop.vue";
 import TaskInput from "./components/TaskInput";
 import SignInButton from "./components/SignInButton";
 import TaskDisplay from "./components/TaskDisplay";
-import { getCookie } from "./utils/cookies";
+import { deleteCookie, getCookie, setCookie } from "./utils/cookies";
 export default {
   components: {
     Shop,
@@ -40,10 +40,18 @@ export default {
     };
   },
   created() {
-    this.username = getCookie("username");
+    if (getCookie("uid") === "demo") {
+      this.username = "";
+    } else {
+      this.username = getCookie("username");
+    }
   },
   methods: {
     onUserLogout() {
+      deleteCookie("username");
+      deleteCookie("token");
+      deleteCookie("email");
+      setCookie("uid", "demo");
       window.location.reload();
     },
     onUserLogin() {

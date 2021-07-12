@@ -76,7 +76,7 @@ export default {
       }
     },
     async refreshProfile() {
-      if (getCookie("token")) {
+      if (getCookie("uid") !== "demo") {
         this.showSignIn = false;
       } else {
         this.showSignIn = true;
