@@ -26,6 +26,14 @@ export default {
   data() {
     return {
       username: "",
+      colors: [
+        "#f2ff7a",
+        "#7affb6",
+        "#ff7a7a",
+        "#7ab8ff",
+        "#ff7aff",
+        "#f2ff7a",
+      ],
     };
   },
   created() {
@@ -67,6 +75,6 @@ body {
 }
 
 body {
-  background-color: #252525;
+  background-color: $secondary-text-color;
 }
 </style>

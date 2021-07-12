@@ -9,10 +9,20 @@
   color: $accent-color !important;
 }
 
+li > .el-badge {
+  width: 100%;
+}
+
+li .el-badge__content {
+  font-weight: 800 !important;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 li > .el-button {
   width: 100%;
   font-family: $font-family;
-  margin-top: 20px;
+  margin-top: 0px;
+  margin-bottom: 30px;
   box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.7) !important;
   background-color: transparent !important;
   color: $basic-text-color !important;
@@ -119,5 +129,10 @@ li > .el-button {
 
 .not-due-input-wrapper .el-input_inner,
 .not-due-input-wrapper .el-date-editor .el-input__inner {
+  color: $secondary-text-color !important;
+}
+
+.single-task-holder .el-select .el-input__inner,
+.single-task-holder .el-select .el-input.is-focus .el-input__inner {
   color: $secondary-text-color !important;
 }

@@ -3,7 +3,10 @@
     <ul style="list-style-type: none; padding: 0; margin: 0">
       <li :key="category.name" v-for="category in categories">
         <el-button @click="openTaskCategory(category)">
-          {{ category.name }}
+          {{ category.name }} - {{ taskCounts[category.name] }}
+          <span style="color: #ff7a7a; margin-left: 20px"
+            >Due: {{ taskDueCounts[category.name] }}</span
+          >
         </el-button>
       </li>
     </ul>
@@ -115,7 +118,14 @@
 </template>
 
 <script>
-import { getTasks, updateTask, getCategories, deleteTask } from "../api/tasks";
+import {
+  getTasks,
+  updateTask,
+  getCategories,
+  deleteTask,
+  getTaskCount,
+  getTaskDueCount,
+} from "../api/tasks";
 import { getThisWeekend, getNextWeekend } from "../utils/datetime";
 import "../styles/TaskDisplay.scss";
 import { getCookie } from "../utils/cookies";
@@ -125,6 +135,8 @@ export default {
     return {
       categories: [],
       tasks: [],
+      taskCounts: {},
+      taskDueCounts: {},
       showDrawer: false,
       displayCategory: "",
       dateTimeShortcuts: {
@@ -316,14 +328,33 @@ export default {
       }
     },
   },
-  async created() {
-    try {
-      let cats = await getCategories(getCookie("uid"));
-      cats.sort((a, b) => a.priority - b.priority);
-      this.categories = cats;
-    } catch (err) {
-      this.$message.error(err.message);
-    }
+  created() {
+    getCategories(getCookie("uid"))
+      .then((cats) => {
+        cats.sort((a, b) => a.priority - b.priority);
+        this.categories = cats;
+        cats.forEach(async (category) => {
+          getTaskCount(getCookie("uid"), category.name)
+            .then((count) => {
+              this.taskCounts[category.name] = count;
+              this.refreshTaskCategory(category.name);
+            })
+            .catch((err) => {
+              this.$message.error(err.message);
+            });
+          getTaskDueCount(getCookie("uid"), category.name)
+            .then((count) => {
+              this.taskDueCounts[category.name] = count;
+              this.refreshTaskCategory(category.name);
+            })
+            .catch((err) => {
+              this.$message.error(err.message);
+            });
+        });
+      })
+      .catch((err) => {
+        this.$message.error(err.message);
+      });
   },
 };
 </script>

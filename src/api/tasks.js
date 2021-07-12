@@ -178,3 +178,41 @@ export async function getTasks(uid, category) {
       });
   });
 }
+
+export async function getTaskCount(uid, category) {
+  return new Promise((res, rej) => {
+    db.collection("users")
+      .doc(uid)
+      .collection("tasks")
+      .where("category", "==", category)
+      .get()
+      .then((querySnapshot) => {
+        res(querySnapshot.size);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}
+
+export async function getTaskDueCount(uid, category) {
+  return new Promise((res, rej) => {
+    db.collection("users")
+      .doc(uid)
+      .collection("tasks")
+      .where("category", "==", category)
+      .get()
+      .then((querySnapshot) => {
+        let count = 0;
+        querySnapshot.forEach((doc) => {
+          if (doc.data().due.toDate() < new Date()) {
+            count++;
+          }
+        });
+        res(count);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}

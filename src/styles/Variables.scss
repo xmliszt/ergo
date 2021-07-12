@@ -1,4 +1,8 @@
-$accent-color: #7ac3ff;
+$colorList: #f2ff7a, #7affb6, #ff7a7a, #7ab8ff, #ff7aff, #f2ff7a;
+$colorKey: random(length($colorList));
+
+$accent-color: #ff7a7a;
+
 $basic-text-color: #fff;
 $secondary-text-color: #2c2c2c;
 $font-family: "ZenLoop", "Helvetica Neue", Helvetica, "PingFang SC",
