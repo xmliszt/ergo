@@ -217,6 +217,7 @@ export default {
     handleClose() {
       this.displayCategory = "";
       this.showDrawer = false;
+      this.refreshTasks();
     },
     async updateTask(taskId) {
       try {
@@ -308,8 +309,7 @@ export default {
               );
               break;
           }
-
-          this.refreshTaskCategory(task.category);
+          await this.refreshTaskCategory(this.displayCategory);
           this.$message.success("finished task");
           this.$emit("update");
         }
@@ -322,40 +322,36 @@ export default {
         let task = this.tasks.find((task) => task.taskId === taskId);
         if (task) {
           await deleteTask(getCookie("uid"), taskId);
-          this.refreshTaskCategory(task.category);
+          await this.refreshTaskCategory(this.displayCategory);
         }
       } catch (err) {
         this.$message.error(err.message);
       }
     },
+    async refreshTasks() {
+      getCategories(getCookie("uid"))
+        .then(async (cats) => {
+          cats.sort((a, b) => a.priority - b.priority);
+          this.categories = cats;
+          cats.forEach(async (category) => {
+            try {
+              let count = await getTaskCount(getCookie("uid"), category.name);
+              this.taskCounts[category.name] = count;
+              count = await getTaskDueCount(getCookie("uid"), category.name);
+              this.taskDueCounts[category.name] = count;
+              await this.refreshTaskCategory(category.name);
+            } catch (err) {
+              this.$message.error(err.message);
+            }
+          });
+        })
+        .catch((err) => {
+          this.$message.error(err.message);
+        });
+    },
   },
   created() {
-    getCategories(getCookie("uid"))
-      .then((cats) => {
-        cats.sort((a, b) => a.priority - b.priority);
-        this.categories = cats;
-        cats.forEach(async (category) => {
-          getTaskCount(getCookie("uid"), category.name)
-            .then((count) => {
-              this.taskCounts[category.name] = count;
-              this.refreshTaskCategory(category.name);
-            })
-            .catch((err) => {
-              this.$message.error(err.message);
-            });
-          getTaskDueCount(getCookie("uid"), category.name)
-            .then((count) => {
-              this.taskDueCounts[category.name] = count;
-              this.refreshTaskCategory(category.name);
-            })
-            .catch((err) => {
-              this.$message.error(err.message);
-            });
-        });
-      })
-      .catch((err) => {
-        this.$message.error(err.message);
-      });
+    this.refreshTasks();
   },
 };
 </script>

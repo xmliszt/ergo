@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1 class="title">Hi {{ username }}! What's in your mind today?</h1>
-    <TaskInput @category-update="onCategoryUpdate" />
+    <TaskInput @category-update="onCategoryUpdate" @update="onTaskCreated" />
     <TaskDisplay ref="taskDisplay" @update="onTaskUpdate" />
     <SignInButton
       ref="signInButton"
@@ -51,6 +51,9 @@ export default {
     },
     onCategoryUpdate(categories) {
       this.$refs.taskDisplay.updateCategories(categories);
+    },
+    onTaskCreated() {
+      this.$refs.taskDisplay.refreshTasks();
     },
     onTaskUpdate() {
       this.$refs.signInButton.refreshProfile();

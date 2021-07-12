@@ -201,6 +201,7 @@ export default {
         this.$message.success("task is successfully created");
         this.taskForm.description = "";
         this.onTaskInputChange();
+        this.$emit("update");
       } catch (err) {
         this.$message.error(err.message);
       }
