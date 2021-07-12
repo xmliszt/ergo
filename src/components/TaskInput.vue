@@ -49,6 +49,16 @@
               :picker-options="dateTimeShortcuts"
             ></el-date-picker>
           </el-form-item>
+          <el-form-item label="Repeat">
+            <el-select v-model="taskForm.repeat">
+              <el-option
+                :key="option.value"
+                :label="option.label"
+                :value="option.value"
+                v-for="option in repeatOptions"
+              ></el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item label="Rewards">
             <div class="rewards-wrapper">
               <div style="width: 95%; margin-right: 20px">
@@ -89,6 +99,7 @@ export default {
       taskForm: {
         description: "",
         category: "",
+        repeat: "no-repeat",
         hasDueDate: false,
         dueDateTime: new Date(),
         rewards: 1,
@@ -126,6 +137,28 @@ export default {
       },
       rewardMarks: {},
       categories: [],
+      repeatOptions: [
+        {
+          label: "No Repeat",
+          value: "no-repeat",
+        },
+        {
+          label: "Everyday",
+          value: "everyday",
+        },
+        {
+          label: "Once A Week",
+          value: "once-a-week",
+        },
+        {
+          label: "Once A Month",
+          value: "once-a-month",
+        },
+        {
+          label: "Once A Year",
+          value: "once-a-year",
+        },
+      ],
       highestPriority: 0,
     };
   },
@@ -162,6 +195,7 @@ export default {
           this.taskForm.description,
           this.taskForm.hasDueDate,
           this.taskForm.dueDateTime,
+          this.taskForm.repeat,
           this.taskForm.rewards
         );
         this.$message.success("task is successfully created");

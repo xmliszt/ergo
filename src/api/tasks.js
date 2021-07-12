@@ -79,6 +79,7 @@ export async function addNewTask(
   description,
   hasDueDate,
   dueDateTime,
+  repeat,
   rewards
 ) {
   return new Promise((res, rej) => {
@@ -90,6 +91,7 @@ export async function addNewTask(
         category: category,
         hasDueDate,
         due: dueDateTime,
+        repeat,
         rewards: rewards,
       })
       .then((doc) => {
@@ -108,6 +110,7 @@ export async function updateTask(
   description,
   hasDueDate,
   dueDateTime,
+  repeat,
   rewards
 ) {
   return new Promise((res, rej) => {
@@ -120,6 +123,7 @@ export async function updateTask(
         category: category,
         hasDueDate,
         due: dueDateTime,
+        repeat,
         rewards: rewards,
       })
       .then(() => {
@@ -163,6 +167,7 @@ export async function getTasks(uid, category) {
             category: doc.data().category,
             hasDueDate: doc.data().hasDueDate,
             due: doc.data().due.toDate(),
+            repeat: doc.data().repeat,
             rewards: doc.data().rewards,
           });
         });

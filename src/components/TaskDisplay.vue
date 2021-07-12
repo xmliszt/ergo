@@ -86,6 +86,20 @@
                 ></el-date-picker>
               </div>
             </div>
+            <div class="item-wrapper">
+              <el-select
+                v-model="task.repeat"
+                @change="updateTask(task.taskId)"
+                :disabled="task.category === 'archive'"
+              >
+                <el-option
+                  :key="option.value"
+                  :label="option.label"
+                  :value="option.value"
+                  v-for="option in repeatOptions"
+                ></el-option>
+              </el-select>
+            </div>
             <span>+{{ task.rewards }}</span>
             <el-button
               icon="el-icon-close"
@@ -145,6 +159,28 @@ export default {
       },
       dueColor: "color: #F56C6C;",
       notDueColor: "color: #303133;",
+      repeatOptions: [
+        {
+          label: "No Repeat",
+          value: "no-repeat",
+        },
+        {
+          label: "Everyday",
+          value: "everyday",
+        },
+        {
+          label: "Once A Week",
+          value: "once-a-week",
+        },
+        {
+          label: "Once A Month",
+          value: "once-a-month",
+        },
+        {
+          label: "Once A Year",
+          value: "once-a-year",
+        },
+      ],
     };
   },
   methods: {
@@ -180,6 +216,7 @@ export default {
             task.desc,
             task.hasDueDate,
             task.due,
+            task.repeat,
             task.rewards
           );
         }
@@ -193,15 +230,72 @@ export default {
         if (task) {
           let coins = task.rewards;
           await addCoins(getCookie("uid"), coins);
-          await updateTask(
-            getCookie("uid"),
-            taskId,
-            "archive",
-            task.desc,
-            task.hasDueDate,
-            task.due,
-            task.rewards
-          );
+
+          let repeatOption = task.repeat;
+
+          switch (repeatOption) {
+            case "no-repeat":
+              await updateTask(
+                getCookie("uid"),
+                taskId,
+                "archive",
+                task.desc,
+                task.hasDueDate,
+                task.due,
+                task.repeat,
+                task.rewards
+              );
+              break;
+            case "everyday":
+              await updateTask(
+                getCookie("uid"),
+                taskId,
+                task.category,
+                task.desc,
+                task.hasDueDate,
+                new Date(task.due.getTime() + 24 * 60 * 60 * 1000),
+                task.repeat,
+                task.rewards
+              );
+              break;
+            case "once-a-week":
+              await updateTask(
+                getCookie("uid"),
+                taskId,
+                task.category,
+                task.desc,
+                task.hasDueDate,
+                new Date(task.due.getTime() + 7 * 24 * 60 * 60 * 1000),
+                task.repeat,
+                task.rewards
+              );
+              break;
+            case "once-a-month":
+              await updateTask(
+                getCookie("uid"),
+                taskId,
+                task.category,
+                task.desc,
+                task.hasDueDate,
+                new Date(task.due.getTime() + 30 * 7 * 24 * 60 * 60 * 1000),
+                task.repeat,
+                task.rewards
+              );
+              break;
+            case "once-a-year":
+              await updateTask(
+                getCookie("uid"),
+                taskId,
+                task.category,
+                task.desc,
+                task.hasDueDate,
+                new Date(task.due.getTime() + 365 * 24 * 60 * 60 * 1000),
+                task.repeat,
+                task.rewards
+              );
+              break;
+          }
+
           this.refreshTaskCategory(task.category);
           this.$emit("update");
         }
@@ -225,7 +319,6 @@ export default {
     try {
       let cats = await getCategories(getCookie("uid"));
       cats.sort((a, b) => a.priority - b.priority);
-      console.log(cats);
       this.categories = cats;
     } catch (err) {
       this.$message.error(err.message);
