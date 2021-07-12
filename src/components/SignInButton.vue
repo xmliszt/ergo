@@ -2,6 +2,8 @@
   <div class="signin-btn-wrapper">
     <el-button @click="signIn" v-show="showSignIn">Google Sign In</el-button>
     <div class="login-wrapper" v-show="!showSignIn">
+      <div class="task-text">{{ coins }} coins</div>
+      <div class="task-text">|</div>
       <div class="task-text">{{ email }}</div>
       <el-button
         @click="userLogout"
@@ -18,20 +20,36 @@ import "../styles/SignInButton.scss";
 import { getCookie, setCookie } from "../utils/cookies";
 import { googleLoginPopup, logout } from "../api/auth";
 import { addCategory } from "../api/tasks";
+import {
+  doesUserExist,
+  createUserProfile,
+  updateLastLoginAt,
+  getUserProfile,
+} from "../api/user";
 
 export default {
   data() {
     return {
       showSignIn: true,
       email: "",
+      coins: 0,
     };
   },
   methods: {
     async signIn() {
       try {
         let result = await googleLoginPopup();
-        this.email = result.user.email;
         this.showSignIn = false;
+        if (!(await doesUserExist(result.user.uid))) {
+          await createUserProfile(
+            result.user.uid,
+            result.user.displayName,
+            result.user.email,
+            new Date()
+          );
+        } else {
+          await updateLastLoginAt(result.user.uid, new Date());
+        }
         this.$message.success("you have been logged in successfully");
         let uid = result.user.uid;
         await addCategory(uid, "default", 0);
@@ -54,15 +72,20 @@ export default {
         this.$message.error(err.message);
       }
     },
+    async refreshProfile() {
+      if (getCookie("token")) {
+        this.showSignIn = false;
+        let userProfile = await getUserProfile(getCookie("uid"));
+        this.email = userProfile.email;
+        this.coins = userProfile.coins;
+      } else {
+        this.showSignIn = true;
+        setCookie("uid", "demo");
+      }
+    },
   },
   created() {
-    if (getCookie("token")) {
-      this.showSignIn = false;
-      this.email = getCookie("email");
-    } else {
-      this.showSignIn = true;
-      setCookie("uid", "demo");
-    }
+    this.refreshProfile();
   },
 };
 </script>

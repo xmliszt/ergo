@@ -2,8 +2,12 @@
   <div id="app">
     <h1 class="title">Hi {{ username }}! What's in your mind today?</h1>
     <TaskInput @category-update="onCategoryUpdate" />
-    <TaskDisplay ref="taskDisplay" />
-    <SignInButton @logout="onUserLogout" @login="onUserLogin" />
+    <TaskDisplay ref="taskDisplay" @update="onTaskUpdate" />
+    <SignInButton
+      ref="signInButton"
+      @logout="onUserLogout"
+      @login="onUserLogin"
+    />
   </div>
 </template>
 
@@ -36,6 +40,9 @@ export default {
     },
     onCategoryUpdate(categories) {
       this.$refs.taskDisplay.updateCategories(categories);
+    },
+    onTaskUpdate() {
+      this.$refs.signInButton.refreshProfile();
     },
   },
 };

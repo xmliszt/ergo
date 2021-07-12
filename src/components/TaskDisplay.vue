@@ -17,10 +17,16 @@
       <ul style="list-style-type: none; padding: 0; margin: 0">
         <li :key="task.taskId" v-for="task in tasks">
           <div class="single-task-holder">
-            <el-button icon="el-icon-circle-check" circle></el-button>
+            <el-button
+              icon="el-icon-circle-check"
+              circle
+              @click="finishTask(task.taskId)"
+              :disabled="task.category === 'archive'"
+            ></el-button>
             <el-input
               v-model="task.desc"
               @change="updateTask(task.taskId)"
+              :disabled="task.category === 'archive'"
             ></el-input>
             due
             <el-date-picker
@@ -29,6 +35,7 @@
               :picker-options="dateTimeShortcuts"
               :clearable="false"
               @change="updateTask(task.taskId)"
+              :disabled="task.category === 'archive'"
             ></el-date-picker>
             <span>+{{ task.rewards }}</span>
           </div>
@@ -39,10 +46,11 @@
 </template>
 
 <script>
-import { getTasks, updateTask } from "../api/tasks";
+import { getTasks, updateTask, getCategories } from "../api/tasks";
 import { getThisWeekend, getNextWeekend } from "../utils/datetime";
 import "../styles/TaskDisplay.scss";
 import { getCookie } from "../utils/cookies";
+import { addCoins } from "../api/user";
 export default {
   data() {
     return {
@@ -87,16 +95,19 @@ export default {
     updateCategories(categories) {
       this.categories = categories;
     },
-    async openTaskCategory(category) {
-      this.displayCategory = category.name;
-      this.showDrawer = true;
+    async refreshTaskCategory(category) {
       try {
-        let results = await getTasks(getCookie("uid"), category.name);
+        let results = await getTasks(getCookie("uid"), category);
         results.sort((a, b) => a.due.getTime() - b.due.getTime());
         this.tasks = results;
       } catch (err) {
         this.$message.error(err.message);
       }
+    },
+    openTaskCategory(category) {
+      this.displayCategory = category.name;
+      this.showDrawer = true;
+      this.refreshTaskCategory(category.name);
     },
     handleClose() {
       this.displayCategory = "";
@@ -119,6 +130,37 @@ export default {
         this.$message.error(err.message);
       }
     },
+    async finishTask(taskId) {
+      try {
+        let task = this.tasks.find((task) => task.taskId === taskId);
+        if (task) {
+          let coins = task.rewards;
+          await addCoins(getCookie("uid"), coins);
+          await updateTask(
+            getCookie("uid"),
+            taskId,
+            "archive",
+            task.desc,
+            task.due,
+            task.rewards
+          );
+          this.refreshTaskCategory(task.category);
+          this.$emit("update");
+        }
+      } catch (err) {
+        this.$message.error(err.message);
+      }
+    },
+  },
+  async created() {
+    try {
+      let cats = await getCategories(getCookie("uid"));
+      cats.sort((a, b) => a.priority - b.priority);
+      console.log(cats);
+      this.categories = cats;
+    } catch (err) {
+      this.$message.error(err.message);
+    }
   },
 };
 </script>

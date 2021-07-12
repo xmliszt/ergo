@@ -108,7 +108,6 @@ export async function updateTask(
   rewards
 ) {
   return new Promise((res, rej) => {
-    console.log("update: " + taskID);
     db.collection("users")
       .doc(uid)
       .collection("tasks")
@@ -120,7 +119,6 @@ export async function updateTask(
         rewards: rewards,
       })
       .then(() => {
-        console.log("success");
         res(true);
       })
       .catch((err) => {
