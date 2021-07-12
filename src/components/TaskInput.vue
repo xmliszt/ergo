@@ -36,7 +36,13 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="Due Date">
+          <el-form-item label="Has Due Date">
+            <el-switch
+              v-model="taskForm.hasDueDate"
+              active-color="#303133"
+            ></el-switch>
+          </el-form-item>
+          <el-form-item label="Due Date" v-show="taskForm.hasDueDate">
             <el-date-picker
               v-model="taskForm.dueDateTime"
               type="datetime"
@@ -83,6 +89,7 @@ export default {
       taskForm: {
         description: "",
         category: "",
+        hasDueDate: false,
         dueDateTime: new Date(),
         rewards: 1,
       },
@@ -153,6 +160,7 @@ export default {
           getCookie("uid"),
           this.taskForm.category,
           this.taskForm.description,
+          this.taskForm.hasDueDate,
           this.taskForm.dueDateTime,
           this.taskForm.rewards
         );

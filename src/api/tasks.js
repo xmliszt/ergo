@@ -77,6 +77,7 @@ export async function addNewTask(
   uid,
   category,
   description,
+  hasDueDate,
   dueDateTime,
   rewards
 ) {
@@ -87,6 +88,7 @@ export async function addNewTask(
       .add({
         desc: description,
         category: category,
+        hasDueDate,
         due: dueDateTime,
         rewards: rewards,
       })
@@ -104,6 +106,7 @@ export async function updateTask(
   taskID,
   category,
   description,
+  hasDueDate,
   dueDateTime,
   rewards
 ) {
@@ -115,6 +118,7 @@ export async function updateTask(
       .update({
         desc: description,
         category: category,
+        hasDueDate,
         due: dueDateTime,
         rewards: rewards,
       })
@@ -157,6 +161,7 @@ export async function getTasks(uid, category) {
             taskId: doc.id,
             desc: doc.data().desc,
             category: doc.data().category,
+            hasDueDate: doc.data().hasDueDate,
             due: doc.data().due.toDate(),
             rewards: doc.data().rewards,
           });

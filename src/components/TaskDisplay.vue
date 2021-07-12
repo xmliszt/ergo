@@ -23,20 +23,69 @@
               @click="finishTask(task.taskId)"
               :disabled="task.category === 'archive'"
             ></el-button>
-            <el-input
-              v-model="task.desc"
-              @change="updateTask(task.taskId)"
-              :disabled="task.category === 'archive'"
-            ></el-input>
-            due
-            <el-date-picker
-              v-model="task.due"
-              type="datetime"
-              :picker-options="dateTimeShortcuts"
-              :clearable="false"
-              @change="updateTask(task.taskId)"
-              :disabled="task.category === 'archive'"
-            ></el-date-picker>
+            <div class="item-wrapper">
+              <div
+                class="due-input-wrapper"
+                v-if="task.hasDueDate && task.due < new Date()"
+              >
+                <el-input
+                  v-model="task.desc"
+                  @change="updateTask(task.taskId)"
+                  :disabled="task.category === 'archive'"
+                ></el-input>
+              </div>
+              <div class="not-due-input-wrapper" v-else>
+                <el-input
+                  v-model="task.desc"
+                  @change="updateTask(task.taskId)"
+                  :disabled="task.category === 'archive'"
+                ></el-input>
+              </div>
+            </div>
+            <div class="item-wrapper">
+              <div
+                class="due-input-wrapper"
+                v-if="task.hasDueDate && task.due < new Date()"
+              >
+                Due
+              </div>
+              <div v-else>Due</div>
+              <el-switch
+                style="margin: 0 1rem"
+                v-model="task.hasDueDate"
+                :disabled="task.category === 'archive'"
+                active-color="#303133"
+                @change="updateTask(task.taskId)"
+              >
+              </el-switch>
+            </div>
+            <div class="item-wrapper">
+              <div
+                class="due-input-wrapper"
+                v-if="task.hasDueDate && task.due < new Date()"
+              >
+                <el-date-picker
+                  v-model="task.due"
+                  type="datetime"
+                  :picker-options="dateTimeShortcuts"
+                  :clearable="false"
+                  @change="updateTask(task.taskId)"
+                  v-show="task.hasDueDate"
+                  :disabled="task.category === 'archive'"
+                ></el-date-picker>
+              </div>
+              <div class="not-due-input-wrapper" v-else>
+                <el-date-picker
+                  v-model="task.due"
+                  type="datetime"
+                  :picker-options="dateTimeShortcuts"
+                  :clearable="false"
+                  @change="updateTask(task.taskId)"
+                  v-show="task.hasDueDate"
+                  :disabled="task.category === 'archive'"
+                ></el-date-picker>
+              </div>
+            </div>
             <span>+{{ task.rewards }}</span>
             <el-button
               icon="el-icon-close"
@@ -94,6 +143,8 @@ export default {
           },
         ],
       },
+      dueColor: "color: #F56C6C;",
+      notDueColor: "color: #303133;",
     };
   },
   methods: {
@@ -127,6 +178,7 @@ export default {
             taskId,
             task.category,
             task.desc,
+            task.hasDueDate,
             task.due,
             task.rewards
           );
@@ -146,6 +198,7 @@ export default {
             taskId,
             "archive",
             task.desc,
+            task.hasDueDate,
             task.due,
             task.rewards
           );
