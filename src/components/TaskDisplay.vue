@@ -38,6 +38,11 @@
               :disabled="task.category === 'archive'"
             ></el-date-picker>
             <span>+{{ task.rewards }}</span>
+            <el-button
+              icon="el-icon-close"
+              circle
+              @click="deleteTask(task.taskId)"
+            ></el-button>
           </div>
         </li>
       </ul>
@@ -46,7 +51,7 @@
 </template>
 
 <script>
-import { getTasks, updateTask, getCategories } from "../api/tasks";
+import { getTasks, updateTask, getCategories, deleteTask } from "../api/tasks";
 import { getThisWeekend, getNextWeekend } from "../utils/datetime";
 import "../styles/TaskDisplay.scss";
 import { getCookie } from "../utils/cookies";
@@ -146,6 +151,17 @@ export default {
           );
           this.refreshTaskCategory(task.category);
           this.$emit("update");
+        }
+      } catch (err) {
+        this.$message.error(err.message);
+      }
+    },
+    async deleteTask(taskId) {
+      try {
+        let task = this.tasks.find((task) => task.taskId === taskId);
+        if (task) {
+          await deleteTask(getCookie("uid"), taskId);
+          this.refreshTaskCategory(task.category);
         }
       } catch (err) {
         this.$message.error(err.message);
