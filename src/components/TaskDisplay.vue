@@ -91,6 +91,7 @@
                 v-model="task.repeat"
                 @change="updateTask(task.taskId)"
                 :disabled="task.category === 'archive'"
+                v-show="task.hasDueDate"
               >
                 <el-option
                   :key="option.value"

@@ -49,7 +49,7 @@
               :picker-options="dateTimeShortcuts"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="Repeat">
+          <el-form-item label="Repeat" v-show="taskForm.hasDueDate">
             <el-select v-model="taskForm.repeat">
               <el-option
                 :key="option.value"
