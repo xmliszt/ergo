@@ -126,7 +126,7 @@ import {
   getTaskCount,
   getTaskDueCount,
 } from "../api/tasks";
-import { getThisWeekend, getNextWeekend } from "../utils/datetime";
+import { getThisWeekend, getNextWeekend, getTomorrow } from "../utils/datetime";
 import "../styles/TaskDisplay.scss";
 import { getCookie } from "../utils/cookies";
 import { addCoins } from "../api/user";
@@ -150,10 +150,7 @@ export default {
           {
             text: "Tomorrow",
             onClick(picker) {
-              picker.$emit(
-                "pick",
-                new Date().setDate(new Date().getDate() + 1)
-              );
+              picker.$emit("pick", getTomorrow());
             },
           },
           {

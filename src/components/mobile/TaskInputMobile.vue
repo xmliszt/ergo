@@ -88,7 +88,11 @@
 
 <script>
 import "../../styles/TaskInputMobile.scss";
-import { getThisWeekend, getNextWeekend } from "../../utils/datetime";
+import {
+  getThisWeekend,
+  getNextWeekend,
+  getTomorrow,
+} from "../../utils/datetime";
 import { addCategory, getCategories, addNewTask } from "../../api/tasks";
 import { getCookie } from "../../utils/cookies";
 
@@ -115,10 +119,7 @@ export default {
           {
             text: "Tomorrow",
             onClick(picker) {
-              picker.$emit(
-                "pick",
-                new Date().setDate(new Date().getDate() + 1)
-              );
+              picker.$emit("pick", getTomorrow());
             },
           },
           {

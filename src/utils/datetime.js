@@ -1,3 +1,9 @@
+export function getTomorrow() {
+  let today = new Date();
+  let oneDay = 24 * 60 * 60 * 1000;
+  return new Date(today.getTime() + oneDay);
+}
+
 export function getThisWeekend() {
   let today = new Date();
   let oneDay = 24 * 60 * 60 * 1000;
