@@ -1,0 +1,102 @@
+@import "./Variables.scss";
+
+.shop-view-mobile .el-drawer__body {
+  padding: 0rem 2rem;
+}
+
+.shop-view-mobile .el-form-item__label {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.shop-view-mobile .el-input__inner {
+  color: $accent-color;
+  font-size: 1rem;
+  font-family: "ZenLoop";
+  font-weight: 700;
+}
+
+.shop-view-mobile .el-form-item__content {
+  text-align: left;
+}
+
+.shop-item-wrapper-mobile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.shop-item-wrapper-mobile .el-avatar {
+  background: transparent;
+  color: $accent-color;
+  border: 1px solid $accent-color !important;
+}
+
+.shop-item-wrapper-mobile .task-text {
+  width: 10rem;
+  margin-left: 1rem;
+  font-size: 1rem;
+  font-weight: 800;
+  color: $secondary-text-color;
+}
+
+.shop-item-wrapper-mobile .el-tag {
+  background-color: transparent !important;
+  border-color: $secondary-text-color !important;
+  font-size: 1rem !important;
+  color: $secondary-text-color !important;
+  font-weight: 900 !important;
+}
+
+.shop-item-wrapper-mobile .el-button {
+  margin-left: 0.8rem;
+  font-size: 0.8rem;
+  padding: 4px;
+  font-weight: 100;
+  color: $accent-color;
+  border-color: $accent-color;
+  border-width: 1px;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+  background-color: transparent;
+}
+
+.shop-view-mobile .el-form-item {
+  margin-bottom: 0.5rem;
+}
+
+.shop-view-mobile .el-form-item__content .el-button {
+  font-size: 0.8rem;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
+.shop-view-mobile .el-form-item__content .el-button,
+.shop-view-mobile .el-form-item__content .el-button:focus {
+  font-weight: 200;
+  color: $secondary-text-color;
+}
+
+.shop-view-mobile .el-form-item__content .el-button:active {
+  background-color: transparent;
+  border-color: $accent-color;
+  color: $accent-color !important;
+}
+
+.shop-item-wrapper-mobile .el-button.close-icon,
+.shop-item-wrapper-mobile .el-button.close-icon:focus {
+  border-width: 0;
+  font-size: 1.5rem;
+  padding: 0;
+  background-color: transparent;
+  color: $secondary-text-color;
+}
+
+.shop-item-wrapper-mobile .el-button.close-icon:hover {
+  color: $accent-color;
+  background-color: transparent;
+}
+
+button.el-button.close-icon.el-button--default:active {
+  background-color: #ff5151;
+  color: white;
+}

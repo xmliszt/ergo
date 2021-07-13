@@ -32,3 +32,20 @@
   border-width: 0px;
   color: #f56c6c;
 }
+
+@media (max-width: 500px) {
+  .login-wrapper > .task-text {
+    font-size: 1.6rem;
+  }
+
+  .signin-btn-wrapper {
+    position: fixed;
+    top: 0.6rem;
+    right: 0.6rem;
+  }
+
+  .login-wrapper > .el-button {
+    border-width: 0px;
+    font-size: 0.8rem;
+  }
+}

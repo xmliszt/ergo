@@ -1,0 +1,93 @@
+@import "./Variables.scss";
+
+.task-input-mobile {
+  padding: 0 2rem;
+}
+
+.task-input-mobile label {
+  width: auto !important;
+  font-size: 1.3rem !important;
+  font-weight: 700 !important;
+  color: $basic-text-color !important;
+}
+
+.task-input-mobile label + .el-form-item__content {
+  margin-left: 0 !important;
+}
+
+.task-input-wrapper-mobile .el-input__inner {
+  background-color: transparent !important;
+  height: 3rem !important;
+  font-size: 1.5rem !important;
+  font-weight: 700;
+  color: $basic-text-color !important;
+  font-family: "ZenLoop";
+}
+
+.task-input-mobile .el-collapse-item__header {
+  background-color: transparent !important;
+  border-width: 0 !important;
+}
+
+.task-input-mobile .el-collapse-item__arrow {
+  color: transparent !important;
+}
+
+.task-input-mobile .el-collapse {
+  border-width: 0 !important;
+}
+
+.task-input-mobile .el-collapse-item__wrap {
+  background-color: transparent !important;
+  padding: 0 1rem !important;
+}
+
+.task-input-mobile .el-collapse-item.is-disabled .el-collapse-item__header {
+  cursor: default !important;
+}
+
+.task-input-mobile .el-form-item__content {
+  text-align: left;
+}
+
+.task-input-mobile .el-slider__bar {
+  background-color: $accent-color !important;
+}
+
+.task-input-mobile .el-slider__button {
+  border-color: $accent-color !important;
+}
+
+.task-input-mobile .el-slider__marks-text {
+  color: $basic-text-color !important;
+  font-weight: 700 !important;
+}
+
+.task-text-mobile {
+  font-size: 1.5rem;
+  color: $basic-text-color;
+  text-align: left;
+  margin: 0 5px;
+  overflow-x: scroll;
+  overflow-y: clip;
+}
+
+.rewards-wrapper-mobile {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-left: 10px;
+}
+
+.submit-btn-wrapper-mobile > button {
+  margin-top: 1rem;
+}
+
+.rewards-wrapper-mobile > div.task-text-mobile {
+  overflow: clip;
+  font-size: 1.5rem;
+}
+
+.task-input-mobile .el-collapse-item__content {
+  padding-bottom: 10px;
+}

@@ -1,31 +1,54 @@
 <template>
   <div id="app">
     <h1 class="title">Hi {{ username }}! What's in your mind today?</h1>
-    <TaskInput @category-update="onCategoryUpdate" @update="onTaskCreated" />
-    <TaskDisplay ref="taskDisplay" @update="onTaskUpdate" />
     <SignInButton
       ref="signInButton"
       @logout="onUserLogout"
       @login="onUserLogin"
     />
-    <Shop @update="onShopUpdate" />
+    <TaskInput
+      v-if="!isMobile()"
+      @category-update="onCategoryUpdate"
+      @update="onTaskCreated"
+    />
+    <TaskInputMobile
+      v-else
+      @category-update="onCategoryUpdate"
+      @update="onTaskCreated"
+    />
+    <TaskDisplay v-if="!isMobile()" ref="taskDisplay" @update="onTaskUpdate" />
+    <TaskDisplayMobile v-else ref="taskDisplay" @update="onTaskUpdate" />
+    <Shop @update="onShopUpdate" v-if="!isMobile()" />
+    <ShopMobile @update="onShopUpdate" v-else />
   </div>
 </template>
 
 <script>
 import "./styles/Root.scss";
+
 import Shop from "./components/Shop.vue";
 import TaskInput from "./components/TaskInput";
 import SignInButton from "./components/SignInButton";
 import TaskDisplay from "./components/TaskDisplay";
+
+import ShopMobile from "./components/mobile/ShopMobile.vue";
+import TaskInputMobile from "./components/mobile/TaskInputMobile.vue";
+import TaskDisplayMobile from "./components/mobile/TaskDisplayMobile.vue";
+
 import { deleteCookie, getCookie, setCookie } from "./utils/cookies";
+import { mixinDetictingMobile } from "./mixins";
+
 export default {
   components: {
     Shop,
     TaskInput,
     SignInButton,
     TaskDisplay,
+    ShopMobile,
+    TaskInputMobile,
+    TaskDisplayMobile,
   },
+  mixins: [mixinDetictingMobile],
   data() {
     return {
       username: "",

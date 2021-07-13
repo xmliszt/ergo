@@ -111,3 +111,17 @@
   color: $accent-color;
   background-color: transparent;
 }
+
+@media (max-width: 500px) {
+  .shop-btn-holder {
+    position: fixed;
+    top: 0.6rem;
+    left: 0.6rem;
+  }
+
+  .shop-btn-holder > .el-button {
+    border-width: 0px;
+    font-size: 1rem;
+    padding: 6px !important;
+  }
+}
