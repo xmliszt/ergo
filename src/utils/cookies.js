@@ -3,7 +3,7 @@ export function setCookie(name, value, expireInSeconds) {
   date.setTime(date.getTime() + expireInSeconds * 1000);
   const expires = "expires=" + date.toUTCString();
   document.cookie =
-    name + "=" + value + "; " + expires + "; path=/; SameSite=Strict; Secure";
+    name + "=" + value + "; " + expires + "; path=/; SameSite=Strict;";
 }
 
 export function deleteCookie(name) {
@@ -12,7 +12,7 @@ export function deleteCookie(name) {
     "=" +
     "; " +
     "Thu, 01 Jan 1970 00:00:00 UTC" +
-    "; path=/; SameSite=Strict; Secure";
+    "; path=/; SameSite=Strict;";
 }
 
 export function getCookie(name) {

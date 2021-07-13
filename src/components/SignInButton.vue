@@ -76,13 +76,15 @@ export default {
       }
     },
     async refreshProfile() {
-      if (!getCookie("uid")) {
+      let uid = getCookie("uid");
+      if (!uid) {
         this.showSignIn = true;
         setCookie("uid", "demo");
-      } else if (getCookie("uid") !== "demo") {
+        uid = "demo";
+      } else if (uid !== "demo") {
         this.showSignIn = false;
       }
-      let userProfile = await getUserProfile(getCookie("uid"));
+      let userProfile = await getUserProfile(uid);
       this.email = userProfile.email;
       this.coins = userProfile.coins;
     },
