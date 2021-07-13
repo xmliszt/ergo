@@ -76,11 +76,11 @@ export default {
       }
     },
     async refreshProfile() {
-      if (getCookie("uid") !== "demo") {
-        this.showSignIn = false;
-      } else {
+      if (!getCookie("uid")) {
         this.showSignIn = true;
         setCookie("uid", "demo");
+      } else if (getCookie("uid") !== "demo") {
+        this.showSignIn = false;
       }
       let userProfile = await getUserProfile(getCookie("uid"));
       this.email = userProfile.email;
