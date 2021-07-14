@@ -4,7 +4,7 @@ import firebase from "firebase/app";
 // Add the Firebase products that you want to use
 import "firebase/auth";
 import "firebase/firestore";
-import { setCookie } from "./utils/cookies";
+import store from "./store";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDH-GshkOTk-2UQ_S4o-k9cDrS0MsiZ4Ow",
@@ -21,13 +21,7 @@ const db = firebase.firestore(app);
 const auth = firebase.auth(app);
 
 auth.onAuthStateChanged((user) => {
-  if (user) {
-    // user logged in
-    setCookie("uid", user.uid);
-  } else {
-    // not logged in
-    setCookie("uid", "demo");
-  }
+  store.dispatch("updateUser", user);
 });
 
 export { db, auth };

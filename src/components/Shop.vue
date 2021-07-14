@@ -64,7 +64,6 @@
 import "../styles/Shop.scss";
 import { getItems, createItem, removeItem } from "../api/shop";
 import { removeCoins } from "../api/user";
-import { getCookie } from "../utils/cookies";
 export default {
   data() {
     return {
@@ -94,7 +93,7 @@ export default {
       this.shopOpen = false;
     },
     buyItem(price) {
-      removeCoins(getCookie("uid"), price)
+      removeCoins(this.$store.getters.user.uid, price)
         .then(() => {
           this.$message.warning("shop item consumed");
           this.$emit("update");
@@ -104,7 +103,7 @@ export default {
         });
     },
     removeItem(itemId) {
-      removeItem(getCookie("uid"), itemId)
+      removeItem(this.$store.getters.user.uid, itemId)
         .then(() => {
           this.$message.warning("item deleted");
           this.getShopItems();
@@ -116,7 +115,11 @@ export default {
     submitForm() {
       this.$refs.itemForm.validate((valid) => {
         if (valid) {
-          createItem(getCookie("uid"), this.itemForm.name, this.itemForm.price)
+          createItem(
+            this.$store.getters.user.uid,
+            this.itemForm.name,
+            this.itemForm.price
+          )
             .then(() => {
               this.$message.success("shop item created");
               this.getShopItems();
@@ -132,7 +135,7 @@ export default {
     },
     async getShopItems() {
       try {
-        let items = await getItems(getCookie("uid"));
+        let items = await getItems(this.$store.getters.user.uid);
         items.sort((a, b) => a.price - b.price);
         this.items = items;
       } catch (err) {
@@ -141,7 +144,9 @@ export default {
     },
   },
   created() {
-    this.getShopItems();
+    this.$store.watch((user) => {
+      this.getShopItems();
+    });
   },
 };
 </script>

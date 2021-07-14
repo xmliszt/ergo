@@ -28,8 +28,6 @@ import {
   updateLastLoginAt,
   getUserProfile,
 } from "../api/user";
-import { getCookie } from "../utils/cookies";
-import { auth } from "../firebase";
 
 export default {
   data() {
@@ -44,20 +42,20 @@ export default {
       try {
         let result = await googleLoginPopup();
         this.showSignIn = false;
-        if (!(await doesUserExist(result.user.uid))) {
+        let uid = result.user.uid;
+        if (!(await doesUserExist(uid))) {
           await createUserProfile(
             result.user.uid,
             result.user.displayName,
             result.user.email,
             new Date()
           );
+          await addCategory(uid, "default", 0);
+          await addCategory(uid, "archive", 1);
         } else {
-          await updateLastLoginAt(result.user.uid, new Date());
+          await updateLastLoginAt(uid, new Date());
         }
         this.$message.success("you have been logged in successfully");
-        let uid = result.user.uid;
-        await addCategory(uid, "default", 0);
-        await addCategory(uid, "archive", 1);
         this.refreshProfile();
       } catch (err) {
         console.error(err);
@@ -69,26 +67,22 @@ export default {
       try {
         await logout();
         this.showSignIn = true;
-        this.email = "";
         this.$message.success("you have been logged out successfully");
-
         this.refreshProfile();
       } catch (err) {
         this.$message.error(err.message);
       }
     },
     async refreshProfile() {
-      let uid;
       this.$emit("update");
-      if (auth.currentUser === null) {
-        uid = "demo";
-        this.showSignIn = true;
-      } else {
-        uid = getCookie("uid");
+      let uid = this.$store.getters.user.uid;
+      this.email = this.$store.getters.user.email;
+      if (this.$store.getters.user.loggedIn) {
         this.showSignIn = false;
+      } else {
+        this.showSignIn = true;
       }
       let userProfile = await getUserProfile(uid);
-      this.email = userProfile.email;
       this.coins = userProfile.coins;
     },
   },

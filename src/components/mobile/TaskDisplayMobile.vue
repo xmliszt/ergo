@@ -140,7 +140,6 @@ import {
   getNextWeekend,
   getTomorrow,
 } from "../../utils/datetime";
-import { getCookie } from "../../utils/cookies";
 import { addCoins } from "../../api/user";
 export default {
   data() {
@@ -211,7 +210,7 @@ export default {
     },
     async refreshTaskCategory(category) {
       try {
-        let results = await getTasks(getCookie("uid"), category);
+        let results = await getTasks(this.$store.getters.user.uid, category);
         results.sort((a, b) => a.due.getTime() - b.due.getTime());
         this.tasks = results;
       } catch (err) {
@@ -233,7 +232,7 @@ export default {
         let task = this.tasks.find((task) => task.taskId === taskId);
         if (task) {
           await updateTask(
-            getCookie("uid"),
+            this.$store.getters.user.uid,
             taskId,
             task.category,
             task.desc,
@@ -252,14 +251,14 @@ export default {
         let task = this.tasks.find((task) => task.taskId === taskId);
         if (task) {
           let coins = task.rewards;
-          await addCoins(getCookie("uid"), coins);
+          await addCoins(this.$store.getters.user.uid, coins);
 
           let repeatOption = task.repeat;
 
           switch (repeatOption) {
             case "no-repeat":
               await updateTask(
-                getCookie("uid"),
+                this.$store.getters.user.uid,
                 taskId,
                 "archive",
                 task.desc,
@@ -271,7 +270,7 @@ export default {
               break;
             case "everyday":
               await updateTask(
-                getCookie("uid"),
+                this.$store.getters.user.uid,
                 taskId,
                 task.category,
                 task.desc,
@@ -283,7 +282,7 @@ export default {
               break;
             case "once-a-week":
               await updateTask(
-                getCookie("uid"),
+                this.$store.getters.user.uid,
                 taskId,
                 task.category,
                 task.desc,
@@ -295,7 +294,7 @@ export default {
               break;
             case "once-a-month":
               await updateTask(
-                getCookie("uid"),
+                this.$store.getters.user.uid,
                 taskId,
                 task.category,
                 task.desc,
@@ -307,7 +306,7 @@ export default {
               break;
             case "once-a-year":
               await updateTask(
-                getCookie("uid"),
+                this.$store.getters.user.uid,
                 taskId,
                 task.category,
                 task.desc,
@@ -330,7 +329,7 @@ export default {
       try {
         let task = this.tasks.find((task) => task.taskId === taskId);
         if (task) {
-          await deleteTask(getCookie("uid"), taskId);
+          await deleteTask(this.$store.getters.user.uid, taskId);
           await this.refreshTaskCategory(this.displayCategory);
         }
       } catch (err) {
@@ -338,15 +337,21 @@ export default {
       }
     },
     async refreshTasks() {
-      getCategories(getCookie("uid"))
+      getCategories(this.$store.getters.user.uid)
         .then(async (cats) => {
           cats.sort((a, b) => a.priority - b.priority);
           this.categories = cats;
           cats.forEach(async (category) => {
             try {
-              let count = await getTaskCount(getCookie("uid"), category.name);
+              let count = await getTaskCount(
+                this.$store.getters.user.uid,
+                category.name
+              );
               this.taskCounts[category.name] = count;
-              count = await getTaskDueCount(getCookie("uid"), category.name);
+              count = await getTaskDueCount(
+                this.$store.getters.user.uid,
+                category.name
+              );
               this.taskDueCounts[category.name] = count;
               await this.refreshTaskCategory(category.name);
             } catch (err) {
@@ -360,7 +365,9 @@ export default {
     },
   },
   created() {
-    this.refreshTasks();
+    this.$store.watch((user) => {
+      this.refreshTasks();
+    });
   },
 };
 </script>

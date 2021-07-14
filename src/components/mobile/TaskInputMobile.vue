@@ -163,10 +163,11 @@ export default {
       highestPriority: 0,
     };
   },
-  async created() {
+  created() {
     this.rewardMarks = this.getRewardMarks();
-    await this.getAllCategories();
-    this.taskForm.category = this.categories[0].label;
+    this.$store.watch((user) => {
+      this.getAllCategories();
+    });
   },
   methods: {
     onTaskEnter() {
@@ -191,7 +192,7 @@ export default {
     async addTask() {
       try {
         await addNewTask(
-          getCookie("uid"),
+          this.$store.getters.user.uid,
           this.taskForm.category,
           this.taskForm.description,
           this.taskForm.hasDueDate,
@@ -214,7 +215,11 @@ export default {
       });
       if (!currentCategories.includes(value)) {
         try {
-          await addCategory(getCookie("uid"), value, this.highestPriority + 1);
+          await addCategory(
+            this.$store.getters.user.uid,
+            value,
+            this.highestPriority + 1
+          );
           this.getAllCategories();
         } catch (err) {
           this.$message.error(err.message);
@@ -226,7 +231,7 @@ export default {
       this.categories = [];
       let cats = [];
       try {
-        let uid = getCookie("uid");
+        let uid = this.$store.getters.user.uid;
         cats = await getCategories(uid);
         cats.sort((a, b) => a.priority - b.priority);
         cats.forEach((cat) => {
@@ -238,6 +243,7 @@ export default {
             this.highestPriority = cat.priority;
           }
         });
+        this.taskForm.category = this.categories[0].label;
         this.$emit("category-update", cats);
       } catch (err) {
         console.error(err);

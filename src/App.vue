@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1 class="title">Hi {{ username }}! What's in your mind today?</h1>
-    <SignInButton ref="signInButton" @update="onUpdate" />
+    <SignInButton ref="signInButton" />
     <TaskInput
       v-if="!isMobile()"
       @category-update="onCategoryUpdate"
@@ -23,15 +23,14 @@
 import "./styles/Root.scss";
 
 import Shop from "./components/Shop.vue";
-import TaskInput from "./components/TaskInput";
-import SignInButton from "./components/SignInButton";
-import TaskDisplay from "./components/TaskDisplay";
+import TaskInput from "./components/TaskInput.vue";
+import SignInButton from "./components/SignInButton.vue";
+import TaskDisplay from "./components/TaskDisplay.vue";
 
 import ShopMobile from "./components/mobile/ShopMobile.vue";
 import TaskInputMobile from "./components/mobile/TaskInputMobile.vue";
 import TaskDisplayMobile from "./components/mobile/TaskDisplayMobile.vue";
 
-import { getCookie } from "./utils/cookies";
 import { mixinDetictingMobile } from "./mixins";
 
 export default {
@@ -48,29 +47,14 @@ export default {
   data() {
     return {
       username: "",
-      colors: [
-        "#f2ff7a",
-        "#7affb6",
-        "#ff7a7a",
-        "#7ab8ff",
-        "#ff7aff",
-        "#f2ff7a",
-      ],
     };
   },
   created() {
-    if (getCookie("uid") === "demo") {
-      this.username = "";
-    } else {
-      this.username = getCookie("username");
-    }
+    this.$store.watch((user) => {
+      this.username = user.username;
+    });
   },
   methods: {
-    onUpdate() {
-      setTimeout(() => {
-        this.$refs.taskDisplay.refreshTasks();
-      }, 1000);
-    },
     onCategoryUpdate(categories) {
       this.$refs.taskDisplay.updateCategories(categories);
     },
