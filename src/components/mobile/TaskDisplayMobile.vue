@@ -159,13 +159,11 @@ import {
   deleteCategory,
 } from "../../api/tasks";
 import "../../styles/TaskDisplayMobile.scss";
-import {
-  getThisWeekend,
-  getNextWeekend,
-  getTomorrow,
-} from "../../utils/datetime";
 import { addCoins } from "../../api/user";
+import { datetimeShortcuts, repeatOptions } from "../../mixins";
+
 export default {
+  mixins: [datetimeShortcuts, repeatOptions],
   data() {
     return {
       categories: [],
@@ -174,58 +172,8 @@ export default {
       taskDueCounts: {},
       showDrawer: false,
       displayCategory: "",
-      dateTimeShortcuts: {
-        shortcuts: [
-          {
-            text: "Today",
-            onClick(picker) {
-              picker.$emit("pick", new Date());
-            },
-          },
-          {
-            text: "Tomorrow",
-            onClick(picker) {
-              picker.$emit("pick", getTomorrow());
-            },
-          },
-          {
-            text: "This Weekend",
-            onClick(picker) {
-              picker.$emit("pick", getThisWeekend());
-            },
-          },
-          {
-            text: "Next Weekend",
-            onClick(picker) {
-              picker.$emit("pick", getNextWeekend());
-            },
-          },
-        ],
-      },
       dueColor: "color: #F56C6C;",
       notDueColor: "color: #303133;",
-      repeatOptions: [
-        {
-          label: "No Repeat",
-          value: "no-repeat",
-        },
-        {
-          label: "Everyday",
-          value: "everyday",
-        },
-        {
-          label: "Once A Week",
-          value: "once-a-week",
-        },
-        {
-          label: "Once A Month",
-          value: "once-a-month",
-        },
-        {
-          label: "Once A Year",
-          value: "once-a-year",
-        },
-      ],
     };
   },
   methods: {

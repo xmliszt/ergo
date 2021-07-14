@@ -88,10 +88,12 @@
 
 <script>
 import "@/styles/TaskInput.scss";
-import { getThisWeekend, getNextWeekend, getTomorrow } from "../utils/datetime";
+import { datetimeShortcuts, repeatOptions } from "../mixins";
+import { getRewardMarks } from "../utils/inputs";
 import { addCategory, getCategories, addNewTask } from "../api/tasks";
 
 export default {
+  mixins: [datetimeShortcuts, repeatOptions],
   data() {
     return {
       activeName: "",
@@ -103,63 +105,13 @@ export default {
         dueDateTime: new Date(),
         rewards: 1,
       },
-      dateTimeShortcuts: {
-        shortcuts: [
-          {
-            text: "Today",
-            onClick(picker) {
-              picker.$emit("pick", new Date());
-            },
-          },
-          {
-            text: "Tomorrow",
-            onClick(picker) {
-              picker.$emit("pick", getTomorrow());
-            },
-          },
-          {
-            text: "This Weekend",
-            onClick(picker) {
-              picker.$emit("pick", getThisWeekend());
-            },
-          },
-          {
-            text: "Next Weekend",
-            onClick(picker) {
-              picker.$emit("pick", getNextWeekend());
-            },
-          },
-        ],
-      },
       rewardMarks: {},
       categories: [],
-      repeatOptions: [
-        {
-          label: "No Repeat",
-          value: "no-repeat",
-        },
-        {
-          label: "Everyday",
-          value: "everyday",
-        },
-        {
-          label: "Once A Week",
-          value: "once-a-week",
-        },
-        {
-          label: "Once A Month",
-          value: "once-a-month",
-        },
-        {
-          label: "Once A Year",
-          value: "once-a-year",
-        },
-      ],
       highestPriority: 0,
     };
   },
   created() {
-    this.rewardMarks = this.getRewardMarks();
+    this.rewardMarks = getRewardMarks();
     setTimeout(() => {
       this.$store.watch((user) => {
         this.getAllCategories();
@@ -169,22 +121,15 @@ export default {
   methods: {
     onTaskEnter() {
       if (this.taskForm.description.length > 0) {
-        this.activeName = "1";
+        this.activeName = "1"; // open collapse
       } else {
-        this.activeName = "";
+        this.activeName = ""; // close collapse
       }
     },
     onTaskInputChange() {
       if (this.taskForm.description.length === 0) {
-        this.activeName = "";
+        this.activeName = ""; // close collapse
       }
-    },
-    getRewardMarks() {
-      var marks = Object();
-      for (var i = 1; i <= 10; i++) {
-        marks[i] = `${i}`;
-      }
-      return marks;
     },
     async addTask() {
       try {

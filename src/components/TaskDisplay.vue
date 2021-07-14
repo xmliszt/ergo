@@ -4,11 +4,7 @@
       <li :key="category.name" v-for="category in categories">
         <el-button @click="openTaskCategory(category)">
           <div
-            style="
-              display: flex;
-              justify-content: flex-start;
-              padding-right: 2rem;
-            "
+            style="display: flex; justify-content: center; padding-right: 2rem"
           >
             <div class="task-category-name-holder">
               {{ category.name }}
@@ -150,12 +146,12 @@ import {
   getTaskDueCount,
   deleteCategory,
 } from "../api/tasks";
-import { getThisWeekend, getNextWeekend, getTomorrow } from "../utils/datetime";
 import "../styles/TaskDisplay.scss";
-import { getCookie } from "../utils/cookies";
+import { datetimeShortcuts, repeatOptions } from "../mixins";
 import { addCoins } from "../api/user";
 
 export default {
+  mixins: [datetimeShortcuts, repeatOptions],
   data() {
     return {
       categories: [],
@@ -164,58 +160,8 @@ export default {
       taskDueCounts: {},
       showDrawer: false,
       displayCategory: "",
-      dateTimeShortcuts: {
-        shortcuts: [
-          {
-            text: "Today",
-            onClick(picker) {
-              picker.$emit("pick", new Date());
-            },
-          },
-          {
-            text: "Tomorrow",
-            onClick(picker) {
-              picker.$emit("pick", getTomorrow());
-            },
-          },
-          {
-            text: "This Weekend",
-            onClick(picker) {
-              picker.$emit("pick", getThisWeekend());
-            },
-          },
-          {
-            text: "Next Weekend",
-            onClick(picker) {
-              picker.$emit("pick", getNextWeekend());
-            },
-          },
-        ],
-      },
       dueColor: "color: #F56C6C;",
       notDueColor: "color: #303133;",
-      repeatOptions: [
-        {
-          label: "No Repeat",
-          value: "no-repeat",
-        },
-        {
-          label: "Everyday",
-          value: "everyday",
-        },
-        {
-          label: "Once A Week",
-          value: "once-a-week",
-        },
-        {
-          label: "Once A Month",
-          value: "once-a-month",
-        },
-        {
-          label: "Once A Year",
-          value: "once-a-year",
-        },
-      ],
     };
   },
   methods: {
@@ -266,7 +212,6 @@ export default {
         if (task) {
           let coins = task.rewards;
           await addCoins(this.$store.getters.user.uid, coins);
-
           let repeatOption = task.repeat;
 
           switch (repeatOption) {

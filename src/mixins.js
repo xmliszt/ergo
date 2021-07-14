@@ -1,3 +1,5 @@
+import { getThisWeekend, getNextWeekend, getTomorrow } from "./utils/datetime";
+
 /**
  * Detect if device is mobile
  */
@@ -19,5 +21,75 @@ export const mixinDetictingMobile = {
       })(navigator.userAgent || navigator.vendor || window.opera);
       return check;
     },
+  },
+};
+
+/**
+ * For datetime picker shortcuts
+ */
+export const datetimeShortcuts = {
+  data() {
+    return {
+      dateTimeShortcuts: {
+        shortcuts: [
+          {
+            text: "Today",
+            onClick(picker) {
+              picker.$emit("pick", new Date());
+            },
+          },
+          {
+            text: "Tomorrow",
+            onClick(picker) {
+              picker.$emit("pick", getTomorrow());
+            },
+          },
+          {
+            text: "This Weekend",
+            onClick(picker) {
+              picker.$emit("pick", getThisWeekend());
+            },
+          },
+          {
+            text: "Next Weekend",
+            onClick(picker) {
+              picker.$emit("pick", getNextWeekend());
+            },
+          },
+        ],
+      },
+    };
+  },
+};
+
+/**
+ * For select task repeat options
+ */
+export const repeatOptions = {
+  data() {
+    return {
+      repeatOptions: [
+        {
+          label: "No Repeat",
+          value: "no-repeat",
+        },
+        {
+          label: "Everyday",
+          value: "everyday",
+        },
+        {
+          label: "Once A Week",
+          value: "once-a-week",
+        },
+        {
+          label: "Once A Month",
+          value: "once-a-month",
+        },
+        {
+          label: "Once A Year",
+          value: "once-a-year",
+        },
+      ],
+    };
   },
 };
