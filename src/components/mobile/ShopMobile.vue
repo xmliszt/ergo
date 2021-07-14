@@ -142,9 +142,11 @@ export default {
     },
   },
   created() {
-    this.$store.watch((user) => {
-      this.getShopItems();
-    });
+    setTimeout(() => {
+      this.$store.watch((user) => {
+        this.getShopItems();
+      });
+    }, 1000);
   },
 };
 </script>

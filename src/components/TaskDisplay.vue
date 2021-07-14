@@ -350,15 +350,16 @@ export default {
           });
         })
         .catch((err) => {
-          console.log(err);
           this.$message.error(err.message);
         });
     },
   },
   created() {
-    this.$store.watch((user) => {
-      this.refreshTasks();
-    });
+    setTimeout(() => {
+      this.$store.watch((user) => {
+        this.refreshTasks();
+      });
+    }, 1000);
   },
 };
 </script>

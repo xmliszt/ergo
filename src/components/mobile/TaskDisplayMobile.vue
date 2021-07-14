@@ -365,9 +365,11 @@ export default {
     },
   },
   created() {
-    this.$store.watch((user) => {
-      this.refreshTasks();
-    });
+    setTimeout(() => {
+      this.$store.watch((user) => {
+        this.refreshTasks();
+      });
+    }, 1000);
   },
 };
 </script>

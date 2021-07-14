@@ -74,7 +74,6 @@ export default {
       }
     },
     async refreshProfile() {
-      this.$emit("update");
       let uid = this.$store.getters.user.uid;
       this.email = this.$store.getters.user.email;
       if (this.$store.getters.user.loggedIn) {
@@ -82,12 +81,20 @@ export default {
       } else {
         this.showSignIn = true;
       }
-      let userProfile = await getUserProfile(uid);
-      this.coins = userProfile.coins;
+      try {
+        let userProfile = await getUserProfile(uid);
+        this.coins = userProfile.coins;
+      } catch (err) {
+        this.$message.error(err.message);
+      }
     },
   },
   created() {
-    this.refreshProfile();
+    setTimeout(() => {
+      this.$store.watch((user) => {
+        this.refreshProfile();
+      });
+    }, 1000);
   },
 };
 </script>
