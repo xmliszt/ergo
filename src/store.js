@@ -41,7 +41,7 @@ export default new Vuex.Store({
       } else {
         commit("SET_UID", "demo");
         commit("SET_EMAIL", null);
-        commit("SET_USERNAME", "demo");
+        commit("SET_USERNAME", "");
       }
     },
   },

@@ -61,9 +61,11 @@ export default {
       username: "",
     };
   },
-  created() {
-    this.$store.watch((user) => {
-      this.username = user.username;
+  created: function () {
+    this.$store.watch((state) => {
+      if (state) {
+        this.username = state.user.username;
+      }
     });
   },
   methods: {
