@@ -20,6 +20,17 @@ A Simple Personal Task Manager + Reward System
 
 - First release of the web app. You can create your task, organize tasks into different categories, create your own categories, assign coin rewards for each task and coins will be credited to your account upon completion. You can then direct to the shop (top left corner) and create your own shop items for consumption. Assign coins as cost for each item and try spending your coins by "buying" one of the items created. Viola! You now have set up your personal task manager with reward system and it's time to practice self-discipline and get motivated to complete your tasks!
 
+## Version 2.0 Plans
+
+- Put all tasks in the category into "default" if the category is deleted
+- Edit category name
+- Add "Notes" to task body for long messages
+
+## Version 3.0 Plans
+
+- Calendar view to display the number of tasks on a day
+- Convenient in-browser stopwatch
+
 ## Disclaimer
 
 _érgo_ will only work if you practice self-discipline, meaning that you will set the coin rewards and item prices in reasonable number. Of course, you can abuse the system by setting max rewards and keep spending on items you wish to enjoy. However, this will make the assistant ineffective and you won't be motivated to complete more tasks you set for yourself.
