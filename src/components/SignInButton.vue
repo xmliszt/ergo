@@ -40,7 +40,11 @@ export default {
     };
   },
   created() {
-    this.initializeWithTimeout(this.refreshProfile);
+    this.initializeWithTimeout(() => {
+      this.$store.watch((user) => {
+        this.refreshProfile();
+      });
+    });
   },
   methods: {
     async signIn() {

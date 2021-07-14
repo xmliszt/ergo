@@ -169,7 +169,11 @@ export default {
     };
   },
   created() {
-    this.initializeWithTimeout(this.refreshTasks);
+    this.initializeWithTimeout(() => {
+      this.$store.watch((user) => {
+        this.refreshTasks();
+      });
+    });
   },
   methods: {
     updateCategories(categories) {

@@ -88,7 +88,11 @@ export default {
     };
   },
   created() {
-    this.initializeWithTimeout(this.getShopItems);
+    this.initializeWithTimeout(() => {
+      this.$store.watch((user) => {
+        this.getShopItems();
+      });
+    });
   },
   methods: {
     openShop() {

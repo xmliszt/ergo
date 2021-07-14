@@ -119,7 +119,11 @@ export default {
   },
   created() {
     this.rewardMarks = getRewardMarks();
-    this.initializeWithTimeout(this.getAllCategories);
+    this.initializeWithTimeout(() => {
+      this.$store.watch((user) => {
+        this.getAllCategories();
+      });
+    });
   },
   methods: {
     onTaskEnter() {
