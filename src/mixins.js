@@ -93,3 +93,16 @@ export const repeatOptions = {
     };
   },
 };
+
+/**
+ * Initialize Auth State watcher at component, start method f when user state changed
+ */
+export const initializeAuthStateWatcher = {
+  methods: {
+    initializeWithTimeout(f) {
+      setTimeout(() => {
+        f();
+      }, 2000);
+    },
+  },
+};

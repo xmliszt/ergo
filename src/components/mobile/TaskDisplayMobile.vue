@@ -160,10 +160,14 @@ import {
 } from "../../api/tasks";
 import "../../styles/TaskDisplayMobile.scss";
 import { addCoins } from "../../api/user";
-import { datetimeShortcuts, repeatOptions } from "../../mixins";
+import {
+  datetimeShortcuts,
+  initializeAuthStateWatcher,
+  repeatOptions,
+} from "../../mixins";
 
 export default {
-  mixins: [datetimeShortcuts, repeatOptions],
+  mixins: [datetimeShortcuts, repeatOptions, initializeAuthStateWatcher],
   data() {
     return {
       categories: [],
@@ -175,6 +179,9 @@ export default {
       dueColor: "color: #F56C6C;",
       notDueColor: "color: #303133;",
     };
+  },
+  created() {
+    this.initializeWithTimeout(this.refreshTasks);
   },
   methods: {
     updateCategories(categories) {
@@ -348,13 +355,6 @@ export default {
           this.$message.error(err.message);
         });
     },
-  },
-  created() {
-    setTimeout(() => {
-      this.$store.watch((user) => {
-        this.refreshTasks();
-      });
-    }, 1000);
   },
 };
 </script>

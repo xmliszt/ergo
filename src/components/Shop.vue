@@ -64,7 +64,10 @@
 import "../styles/Shop.scss";
 import { getItems, createItem, removeItem } from "../api/shop";
 import { removeCoins } from "../api/user";
+import { initializeAuthStateWatcher } from "../mixins";
+
 export default {
+  mixins: [initializeAuthStateWatcher],
   data() {
     return {
       shopOpen: false,
@@ -83,6 +86,9 @@ export default {
         ],
       },
     };
+  },
+  created() {
+    this.initializeWithTimeout(this.getShopItems);
   },
   methods: {
     openShop() {
@@ -142,13 +148,6 @@ export default {
         this.$message.error(err.message);
       }
     },
-  },
-  created() {
-    setTimeout(() => {
-      this.$store.watch((user) => {
-        this.getShopItems();
-      });
-    }, 1000);
   },
 };
 </script>

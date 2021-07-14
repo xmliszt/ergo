@@ -28,14 +28,19 @@ import {
   updateLastLoginAt,
   getUserProfile,
 } from "../api/user";
+import { initializeAuthStateWatcher } from "../mixins";
 
 export default {
+  mixins: [initializeAuthStateWatcher],
   data() {
     return {
       showSignIn: true,
       email: "",
       coins: 0,
     };
+  },
+  created() {
+    this.initializeWithTimeout(this.refreshProfile);
   },
   methods: {
     async signIn() {
@@ -88,13 +93,6 @@ export default {
         this.$message.error(err.message);
       }
     },
-  },
-  created() {
-    setTimeout(() => {
-      this.$store.watch((user) => {
-        this.refreshProfile();
-      });
-    }, 1000);
   },
 };
 </script>

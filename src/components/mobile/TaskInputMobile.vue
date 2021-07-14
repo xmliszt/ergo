@@ -91,12 +91,16 @@
 
 <script>
 import "../../styles/TaskInputMobile.scss";
-import { datetimeShortcuts, repeatOptions } from "../../mixins";
+import {
+  datetimeShortcuts,
+  initializeAuthStateWatcher,
+  repeatOptions,
+} from "../../mixins";
 import { getRewardMarks } from "../../utils/inputs";
 import { addCategory, getCategories, addNewTask } from "../../api/tasks";
 
 export default {
-  mixins: [datetimeShortcuts, repeatOptions],
+  mixins: [datetimeShortcuts, repeatOptions, initializeAuthStateWatcher],
   data() {
     return {
       activeName: "",
@@ -115,11 +119,7 @@ export default {
   },
   created() {
     this.rewardMarks = getRewardMarks();
-    setTimeout(() => {
-      this.$store.watch((user) => {
-        this.getAllCategories();
-      });
-    }, 1000);
+    this.initializeWithTimeout(this.getAllCategories);
   },
   methods: {
     onTaskEnter() {
