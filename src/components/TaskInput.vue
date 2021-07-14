@@ -241,7 +241,7 @@ export default {
           }
         });
         this.taskForm.category = this.categories[0].label;
-        this.$emit("category-update", cats);
+        this.$emit("category-update");
       } catch (err) {
         console.error(err);
         this.$message.error(err.message);

@@ -1,3 +1,6 @@
+/**
+ * Detect if device is mobile
+ */
 export const mixinDetictingMobile = {
   methods: {
     isMobile: function () {

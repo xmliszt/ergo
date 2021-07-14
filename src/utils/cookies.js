@@ -1,3 +1,5 @@
+// deprecated: implementation replaced by using Vuex global state management
+
 export function setCookie(name, value, expireInSeconds) {
   let date = new Date();
   date.setTime(date.getTime() + expireInSeconds * 1000);

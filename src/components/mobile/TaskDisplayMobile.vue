@@ -3,10 +3,33 @@
     <ul style="list-style-type: none; padding: 0; margin: 0">
       <li :key="category.name" v-for="category in categories">
         <el-button @click="openTaskCategory(category)">
-          {{ category.name }} - {{ taskCounts[category.name] }}
-          <span style="color: #ff7a7a; margin-left: 20px"
-            >Due: {{ taskDueCounts[category.name] }}</span
+          <div
+            style="
+              display: flex;
+              justify-content: flex-start;
+              padding-right: 2rem;
+            "
           >
+            <div class="task-category-name-holder">
+              {{ category.name }}
+            </div>
+            <span style="color: #fff; margin-left: 20px">
+              - {{ taskCounts[category.name] }}
+            </span>
+            <span style="color: #ff7a7a; margin-left: 20px"
+              >Due: {{ taskDueCounts[category.name] }}</span
+            >
+          </div>
+          <div class="floating-button">
+            <el-button
+              icon="el-icon-close"
+              circle
+              @click="deleteCategory(category)"
+              :disabled="
+                category.name == 'default' || category.name == 'archive'
+              "
+            ></el-button>
+          </div>
         </el-button>
       </li>
     </ul>
@@ -133,6 +156,7 @@ import {
   deleteTask,
   getTaskCount,
   getTaskDueCount,
+  deleteCategory,
 } from "../../api/tasks";
 import "../../styles/TaskDisplayMobile.scss";
 import {
@@ -360,6 +384,19 @@ export default {
           });
         })
         .catch((err) => {
+          this.$message.error(err.message);
+        });
+    },
+    deleteCategory(category) {
+      deleteCategory(this.$store.getters.user.uid, category.name)
+        .then(() => {
+          this.$message.warning("category deleted");
+          this.refreshTasks();
+          this.$emit("refreshcategories");
+          this.showDrawer = false;
+        })
+        .catch((err) => {
+          console.log(err);
           this.$message.error(err.message);
         });
     },

@@ -9,6 +9,13 @@
   color: $accent-color !important;
 }
 
+.task-category-name-holder {
+  width: 60vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
 li > .el-badge {
   width: 100%;
 }
@@ -18,7 +25,35 @@ li .el-badge__content {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+li .floating-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 999;
+}
+
+li .floating-button > .el-button.is-disabled {
+  cursor: default;
+}
+
+li .floating-button > .el-button,
+li .floating-button > .el-button:focus,
+li .floating-button > .el-button.is-disabled,
+li .floating-button > .el-button.is-disabled:focus,
+li .floating-button > .el-button.is-disabled:hover {
+  background-color: transparent;
+  border-width: 0;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
+li .floating-button > .el-button:hover,
+li .floating-button > .el-button:active {
+  color: #f56c6c !important;
+}
+
 li > .el-button {
+  position: relative;
   width: 100%;
   font-family: $font-family;
   margin-top: 0px;

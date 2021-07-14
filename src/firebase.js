@@ -20,6 +20,7 @@ const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore(app);
 const auth = firebase.auth(app);
 
+// update user global state whenever auth state change
 auth.onAuthStateChanged((user) => {
   store.dispatch("updateUser", user);
 });

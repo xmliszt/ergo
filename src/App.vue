@@ -4,16 +4,28 @@
     <SignInButton ref="signInButton" />
     <TaskInput
       v-if="!isMobile()"
+      ref="taskInput"
       @category-update="onCategoryUpdate"
       @update="onTaskCreated"
     />
     <TaskInputMobile
       v-else
+      ref="taskInput"
       @category-update="onCategoryUpdate"
       @update="onTaskCreated"
     />
-    <TaskDisplay v-if="!isMobile()" ref="taskDisplay" @update="onTaskUpdate" />
-    <TaskDisplayMobile v-else ref="taskDisplay" @update="onTaskUpdate" />
+    <TaskDisplay
+      v-if="!isMobile()"
+      ref="taskDisplay"
+      @update="onTaskUpdate"
+      @refreshcategories="onRefreshCategories"
+    />
+    <TaskDisplayMobile
+      v-else
+      ref="taskDisplay"
+      @update="onTaskUpdate"
+      @refreshcategories="onRefreshCategories"
+    />
     <Shop @update="onShopUpdate" v-if="!isMobile()" />
     <ShopMobile @update="onShopUpdate" v-else />
   </div>
@@ -55,8 +67,8 @@ export default {
     });
   },
   methods: {
-    onCategoryUpdate(categories) {
-      this.$refs.taskDisplay.updateCategories(categories);
+    onCategoryUpdate() {
+      this.$refs.taskDisplay.refreshTasks();
     },
     onTaskCreated() {
       this.$refs.taskDisplay.refreshTasks();
@@ -66,6 +78,9 @@ export default {
     },
     onShopUpdate() {
       this.$refs.signInButton.refreshProfile();
+    },
+    onRefreshCategories() {
+      this.$refs.taskInput.getAllCategories();
     },
   },
 };

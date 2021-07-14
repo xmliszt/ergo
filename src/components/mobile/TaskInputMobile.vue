@@ -35,6 +35,9 @@
                 v-for="category in categories"
               ></el-option>
             </el-select>
+            <span style="color: #fff"
+              >Create your own category by typing in</span
+            >
           </el-form-item>
           <el-form-item label="Has Due Date">
             <el-switch
@@ -246,7 +249,7 @@ export default {
           }
         });
         this.taskForm.category = this.categories[0].label;
-        this.$emit("category-update", cats);
+        this.$emit("category-update");
       } catch (err) {
         console.error(err);
         this.$message.error(err.message);
