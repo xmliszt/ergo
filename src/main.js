@@ -3,6 +3,9 @@ import App from "./App.vue";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import locale from "element-ui/lib/locale/lang/en";
+import { setCookie } from "./utils/cookies";
+
+setCookie("uid", "demo"); // default demo
 
 Vue.use(ElementUI, { locale });
 

@@ -162,7 +162,6 @@ export default {
   async created() {
     this.rewardMarks = this.getRewardMarks();
     await this.getAllCategories();
-    this.taskForm.category = this.categories[0].label;
   },
   methods: {
     onTaskEnter() {
@@ -234,6 +233,7 @@ export default {
             this.highestPriority = cat.priority;
           }
         });
+        this.taskForm.category = this.categories[0].label;
         this.$emit("category-update", cats);
       } catch (err) {
         console.error(err);
