@@ -204,7 +204,7 @@ export async function getTaskDueCount(uid, category) {
       .then((querySnapshot) => {
         let count = 0;
         querySnapshot.forEach((doc) => {
-          if (doc.data().due.toDate() < new Date()) {
+          if (doc.data().hasDueDate && doc.data().due.toDate() < new Date()) {
             count++;
           }
         });
