@@ -20,7 +20,6 @@
 
 <script>
 import "../styles/SignInButton.scss";
-import { getCookie, setCookie } from "../utils/cookies";
 import { googleLoginPopup, logout } from "../api/auth";
 import { addCategory } from "../api/tasks";
 import {
@@ -29,6 +28,8 @@ import {
   updateLastLoginAt,
   getUserProfile,
 } from "../api/user";
+import { getCookie } from "../utils/cookies";
+import { auth } from "../firebase";
 
 export default {
   data() {
@@ -57,7 +58,7 @@ export default {
         let uid = result.user.uid;
         await addCategory(uid, "default", 0);
         await addCategory(uid, "archive", 1);
-        this.$emit("login");
+        this.refreshProfile();
       } catch (err) {
         console.error(err);
         this.$message.error(err.message);
@@ -70,18 +71,20 @@ export default {
         this.showSignIn = true;
         this.email = "";
         this.$message.success("you have been logged out successfully");
-        this.$emit("logout");
+
+        this.refreshProfile();
       } catch (err) {
         this.$message.error(err.message);
       }
     },
     async refreshProfile() {
-      let uid = getCookie("uid");
-      if (!uid) {
-        this.showSignIn = true;
-        setCookie("uid", "demo");
+      let uid;
+      this.$emit("update");
+      if (auth.currentUser === null) {
         uid = "demo";
-      } else if (uid !== "demo") {
+        this.showSignIn = true;
+      } else {
+        uid = getCookie("uid");
         this.showSignIn = false;
       }
       let userProfile = await getUserProfile(uid);

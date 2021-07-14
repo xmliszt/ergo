@@ -88,6 +88,7 @@ export default {
   methods: {
     openShop() {
       this.shopOpen = true;
+      this.getShopItems();
     },
     handleClose() {
       this.shopOpen = false;

@@ -130,6 +130,7 @@ import { getThisWeekend, getNextWeekend, getTomorrow } from "../utils/datetime";
 import "../styles/TaskDisplay.scss";
 import { getCookie } from "../utils/cookies";
 import { addCoins } from "../api/user";
+
 export default {
   data() {
     return {

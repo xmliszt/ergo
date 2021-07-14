@@ -1,11 +1,7 @@
 <template>
   <div id="app">
     <h1 class="title">Hi {{ username }}! What's in your mind today?</h1>
-    <SignInButton
-      ref="signInButton"
-      @logout="onUserLogout"
-      @login="onUserLogin"
-    />
+    <SignInButton ref="signInButton" @update="onUpdate" />
     <TaskInput
       v-if="!isMobile()"
       @category-update="onCategoryUpdate"
@@ -35,7 +31,7 @@ import ShopMobile from "./components/mobile/ShopMobile.vue";
 import TaskInputMobile from "./components/mobile/TaskInputMobile.vue";
 import TaskDisplayMobile from "./components/mobile/TaskDisplayMobile.vue";
 
-import { deleteCookie, getCookie, setCookie } from "./utils/cookies";
+import { getCookie } from "./utils/cookies";
 import { mixinDetictingMobile } from "./mixins";
 
 export default {
@@ -70,15 +66,10 @@ export default {
     }
   },
   methods: {
-    onUserLogout() {
-      deleteCookie("username");
-      deleteCookie("token");
-      deleteCookie("email");
-      setCookie("uid", "demo");
-      window.location.reload();
-    },
-    onUserLogin() {
-      window.location.reload();
+    onUpdate() {
+      setTimeout(() => {
+        this.$refs.taskDisplay.refreshTasks();
+      }, 1000);
     },
     onCategoryUpdate(categories) {
       this.$refs.taskDisplay.updateCategories(categories);

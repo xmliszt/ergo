@@ -1,19 +1,13 @@
 import { auth } from "../firebase";
-import { setCookie, deleteCookie } from "../utils/cookies";
 import firebase from "firebase/app";
+import { deleteCookie } from "../utils/cookies";
 
 export async function googleLoginPopup() {
   return new Promise((res, rej) => {
     auth
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then((result) => {
-        let cred = result.credential;
-        let token = cred.accessToken;
         let user = result.user;
-        setCookie("token", token);
-        setCookie("email", user.email);
-        setCookie("uid", user.uid);
-        setCookie("username", user.displayName);
         res({
           user: user,
         });
@@ -34,11 +28,7 @@ export function logout() {
     auth
       .signOut()
       .then(() => {
-        deleteCookie("token");
-        deleteCookie("email");
         deleteCookie("uid");
-        deleteCookie("username");
-        setCookie("uid", "demo");
         res(true);
       })
       .catch((err) => {
